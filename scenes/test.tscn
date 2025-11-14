@@ -1,0 +1,84 @@
+[gd_scene load_steps=4 format=3 uid="uid://i5bmhfuwnip2"]
+
+[ext_resource type="Shader" path="res://shaders/debug_texture.gdshader" id="1_7qlm2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k667l"]
+render_priority = 0
+shader = ExtResource("1_7qlm2")
+shader_parameter/checker_size = 0.5
+shader_parameter/color1 = Color(0.494118, 0.882353, 0.376471, 1)
+shader_parameter/color2 = Color(0, 0.713269, 0.302162, 1)
+shader_parameter/show_grid_lines = false
+shader_parameter/grid_line_width = 0.07
+shader_parameter/grid_line_color = Color(0, 0, 0, 1)
+shader_parameter/apply_normal_shading = true
+shader_parameter/normal_shading_strength = 0.745
+shader_parameter/triplanar_sharpness = 32.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ysfrw"]
+render_priority = 0
+shader = ExtResource("1_7qlm2")
+shader_parameter/checker_size = 0.5
+shader_parameter/color1 = Color(1, 0.633634, 0.524333, 1)
+shader_parameter/color2 = Color(0.973191, 0.563801, 0.388363, 1)
+shader_parameter/show_grid_lines = false
+shader_parameter/grid_line_width = 0.07
+shader_parameter/grid_line_color = Color(0, 0, 0, 1)
+shader_parameter/apply_normal_shading = true
+shader_parameter/normal_shading_strength = 0.745
+shader_parameter/triplanar_sharpness = 32.0
+
+[node name="Test" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.5, 0.5)
+use_collision = true
+size = Vector3(4, 4, 10)
+material = SubResource("ShaderMaterial_k667l")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 6.5, -4.5)
+use_collision = true
+size = Vector3(5, 2, 8)
+material = SubResource("ShaderMaterial_k667l")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 2.5, -5)
+use_collision = true
+size = Vector3(1, 6, 1)
+material = SubResource("ShaderMaterial_k667l")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.5, -8)
+use_collision = true
+size = Vector3(1, 6, 1)
+material = SubResource("ShaderMaterial_k667l")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 4, -4.5)
+use_collision = true
+size = Vector3(4, 9, 8)
+material = SubResource("ShaderMaterial_k667l")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 7)
+use_collision = true
+size = Vector3(3, 4, 17)
+material = SubResource("ShaderMaterial_k667l")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 3, 12.5)
+use_collision = true
+size = Vector3(12, 7, 6)
+material = SubResource("ShaderMaterial_k667l")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.5, 0)
+use_collision = true
+size = Vector3(100, 24, 100)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGBox3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+operation = 2
+size = Vector3(99, 24, 99)
+material = SubResource("ShaderMaterial_ysfrw")
