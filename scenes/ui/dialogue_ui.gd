@@ -13,7 +13,7 @@ signal choice_pressed(index: int)
 @onready var text_label: RichTextLabel = $Panel/VBox/TextLabel
 @onready var bottom_row: HBoxContainer = $Panel/VBox/BottomRow
 @onready var choices_container: HBoxContainer = $Panel/VBox/BottomRow/ChoicesContainer
-@onready var next_indicator: Label = $Panel/VBox/BottomRow/NextIndicator
+@onready var next_indicator: Button = $Panel/VBox/BottomRow/NextIndicator
 #endregion
 
 #region Configuration
@@ -31,6 +31,9 @@ var button_style_disabled: StyleBoxFlat
 var choice_buttons: Array[Button] = []
 
 func _ready():
+	# Add to group so state_talking knows we need mouse visible
+	add_to_group("ui_needs_mouse")
+	
 	# Initialize button styles
 	_init_button_styles()
 	
@@ -38,9 +41,10 @@ func _ready():
 	if choices_container:
 		choices_container.visible = false
 	
-	# Set up next indicator
+	# Set up next/continue button
 	if next_indicator:
-		next_indicator.text = next_indicator_text
+		next_indicator.text = "Continue ▶"
+		next_indicator.pressed.connect(_on_next_button_pressed)
 
 func _init_button_styles():
 	# Normal style
@@ -162,7 +166,7 @@ func hide_panel():
 
 func enable_next_indicator():
 	if next_indicator:
-		next_indicator.text = next_indicator_text
+		next_indicator.text = "Continue ▶"
 		_update_next_indicator()
 #endregion
 
@@ -250,4 +254,16 @@ func _on_choice_pressed(index: int):
 	if index >= 0 and index < choice_buttons.size():
 		if not choice_buttons[index].disabled:
 			choice_pressed.emit(index)
+			# Consume the input to prevent it from leaking through to game
+			get_viewport().set_input_as_handled()
+
+func _on_next_button_pressed():
+	## Continue button was clicked
+	next_pressed.emit()
+	get_viewport().set_input_as_handled()
+
+func _gui_input(event: InputEvent):
+	# Consume all mouse clicks on the dialogue panel to prevent attack/interaction
+	if event is InputEventMouseButton and event.pressed:
+		get_viewport().set_input_as_handled()
 #endregion

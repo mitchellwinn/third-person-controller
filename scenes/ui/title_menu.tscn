@@ -108,6 +108,14 @@ theme = ExtResource("4_m1v3m")
 theme_override_font_sizes/font_size = 20
 text = "Test Map (Dev)"
 
+[node name="ResetDataButton" type="Button" parent="VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme = ExtResource("4_m1v3m")
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1, 0.5, 0.5, 1)
+text = "Reset Character Data (Dev)"
+
 [node name="QuitButton" type="Button" parent="VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2

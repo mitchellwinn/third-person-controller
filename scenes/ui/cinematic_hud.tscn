@@ -1,0 +1,260 @@
+[gd_scene load_steps=3 format=3 uid="uid://cinematic_hud"]
+
+[ext_resource type="Script" path="res://scenes/ui/cinematic_hud.gd" id="1_script"]
+[ext_resource type="Theme" path="res://resources/themes/theme_hud.tres" id="2_theme"]
+
+[node name="CinematicHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="TopBar" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 80.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="TopBarContent" type="MarginContainer" parent="TopBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 8
+
+[node name="HBox" type="HBoxContainer" parent="TopBar/TopBarContent"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="PlayerSection" type="VBoxContainer" parent="TopBar/TopBarContent/HBox"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/separation = 4
+
+[node name="PlayerName" type="Label" parent="TopBar/TopBarContent/HBox/PlayerSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "PLAYER_NAME"
+
+[node name="HealthBar" type="HBoxContainer" parent="TopBar/TopBarContent/HBox/PlayerSection"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HealthIcon" type="Label" parent="TopBar/TopBarContent/HBox/PlayerSection/HealthBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.3, 0.3, 1)
+theme_override_font_sizes/font_size = 14
+text = "♥"
+
+[node name="HealthProgress" type="ProgressBar" parent="TopBar/TopBarContent/HBox/PlayerSection/HealthBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 16)
+layout_mode = 2
+theme_override_styles/background = null
+theme_override_styles/fill = null
+max_value = 100.0
+value = 75.0
+show_percentage = false
+
+[node name="HealthText" type="Label" parent="TopBar/TopBarContent/HBox/PlayerSection/HealthBar"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_font_sizes/font_size = 12
+text = "75/100"
+
+[node name="ShieldBar" type="HBoxContainer" parent="TopBar/TopBarContent/HBox/PlayerSection"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ShieldIcon" type="Label" parent="TopBar/TopBarContent/HBox/PlayerSection/ShieldBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.7, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "◈"
+
+[node name="ShieldProgress" type="ProgressBar" parent="TopBar/TopBarContent/HBox/PlayerSection/ShieldBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 12)
+layout_mode = 2
+theme_override_styles/background = null
+theme_override_styles/fill = null
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="ShieldText" type="Label" parent="TopBar/TopBarContent/HBox/PlayerSection/ShieldBar"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "50/50"
+
+[node name="SquadSection" type="HBoxContainer" parent="TopBar/TopBarContent/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/separation = 20
+
+[node name="BottomBar" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="BottomBarContent" type="MarginContainer" parent="BottomBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 12
+
+[node name="HBox" type="HBoxContainer" parent="BottomBar/BottomBarContent"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 60
+
+[node name="LeftSection" type="HBoxContainer" parent="BottomBar/BottomBarContent/HBox"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/separation = 30
+
+[node name="WeaponInfo" type="VBoxContainer" parent="BottomBar/BottomBarContent/HBox/LeftSection"]
+layout_mode = 2
+alignment = 2
+theme_override_constants/separation = 2
+
+[node name="WeaponName" type="Label" parent="BottomBar/BottomBarContent/HBox/LeftSection/WeaponInfo"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "ASSAULT RIFLE"
+
+[node name="WeaponType" type="Label" parent="BottomBar/BottomBarContent/HBox/LeftSection/WeaponInfo"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+text = "Primary Weapon"
+
+[node name="CenterSection" type="VBoxContainer" parent="BottomBar/BottomBarContent/HBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 2
+
+[node name="StaminaLabel" type="Label" parent="BottomBar/BottomBarContent/HBox/CenterSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 0.8)
+theme_override_font_sizes/font_size = 10
+text = "STAMINA"
+horizontal_alignment = 1
+
+[node name="StaminaBar" type="ProgressBar" parent="BottomBar/BottomBarContent/HBox/CenterSection"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/background = null
+theme_override_styles/fill = null
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="RightSection" type="HBoxContainer" parent="BottomBar/BottomBarContent/HBox"]
+layout_mode = 2
+size_flags_horizontal = 10
+alignment = 2
+theme_override_constants/separation = 20
+
+[node name="AmmoInfo" type="VBoxContainer" parent="BottomBar/BottomBarContent/HBox/RightSection"]
+layout_mode = 2
+alignment = 2
+theme_override_constants/separation = 0
+
+[node name="AmmoCount" type="HBoxContainer" parent="BottomBar/BottomBarContent/HBox/RightSection/AmmoInfo"]
+layout_mode = 2
+alignment = 2
+theme_override_constants/separation = 4
+
+[node name="CurrentAmmo" type="Label" parent="BottomBar/BottomBarContent/HBox/RightSection/AmmoInfo/AmmoCount"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "30"
+horizontal_alignment = 2
+
+[node name="Separator" type="Label" parent="BottomBar/BottomBarContent/HBox/RightSection/AmmoInfo/AmmoCount"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 20
+text = "/"
+horizontal_alignment = 1
+
+[node name="ReserveAmmo" type="Label" parent="BottomBar/BottomBarContent/HBox/RightSection/AmmoInfo/AmmoCount"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 16
+text = "120"
+
+[node name="AmmoType" type="Label" parent="BottomBar/BottomBarContent/HBox/RightSection/AmmoInfo"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.55, 0.6, 1)
+theme_override_font_sizes/font_size = 10
+text = "MEDIUM CELLS"
+horizontal_alignment = 2
+
+[node name="ReloadBar" type="ProgressBar" parent="BottomBar/BottomBarContent/HBox/RightSection/AmmoInfo"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(80, 6)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_styles/background = null
+theme_override_styles/fill = null
+max_value = 1.0
+value = 0.0
+show_percentage = false
+
+[node name="Crosshair" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+

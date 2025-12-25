@@ -1,0 +1,28 @@
+{
+	"tree_id": "shop_supply_officer",
+	"npc_id": "supply_officer",
+	"name": "Supply Officer",
+	"nodes": [
+		{
+			"id": "greeting",
+			"speaker": "Supply Officer",
+			"text": "Welcome, soldier. Looking to resupply?",
+			"choices": [
+				{
+					"text": "Show me what you have",
+					"events": [
+						{
+							"type": "open_shop",
+							"params": {
+								"shop_id": "supply_officer"
+							}
+						}
+					]
+				},
+				{
+					"text": "Just passing through"
+				}
+			]
+		}
+	]
+}

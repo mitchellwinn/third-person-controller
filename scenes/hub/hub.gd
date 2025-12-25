@@ -1,4 +1,4 @@
-extends "res://addons/gsg-godot-plugins/action_entities/scripts/multiplayer_scene.gd"
+extends MultiplayerScene
 
 ## Hub - Social zone where players gather between missions
 ## Combat is disabled, nametags visible, NPCs handle themselves

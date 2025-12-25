@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cj1jmhvtogtkf"]
+[gd_scene load_steps=22 format=3 uid="uid://cj1jmhvtogtkf"]
 
 [ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/action_player.gd" id="1_player"]
 [ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/combat_component.gd" id="2_combat"]
@@ -14,12 +14,20 @@
 [ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/equipment_manager.gd" id="12_equip"]
 [ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/weapon_hud.gd" id="15_weapon_hud"]
 [ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/weapon_attachment_setup.gd" id="17_attach_setup"]
+[ext_resource type="PackedScene" uid="uid://c76500ht4q7v7" path="res://prefabs/weapons/energy_rifle.tscn" id="18_rifle_prefab"]
+[ext_resource type="PackedScene" uid="uid://cd20gp0wuy710" path="res://prefabs/weapons/energy_pistol.tscn" id="19_pistol_prefab"]
+[ext_resource type="PackedScene" path="res://prefabs/weapons/energy_saber.tscn" id="20_saber_prefab"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/melee_combo_controller.gd" id="21_melee_combo"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/combat/bone_hitbox_system.gd" id="22_bone_hitbox"]
+[ext_resource type="PackedScene" path="res://prefabs/weapons/suppressed_smg.tscn" id="23_smg_prefab"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_main"]
 radius = 0.35
 height = 1.7
 
 [node name="Player" type="CharacterBody3D" groups=["players"]]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_player")
 entity_id = "player"
 base_move_speed = 6.0
@@ -66,10 +74,196 @@ bones/27/scale = Vector3(1, 1, 1)
 bones/28/rotation = Quaternion(-0.000208802, 0.938307, 0.345802, -0.000565272)
 bones/28/scale = Vector3(1, 1, 1)
 
+[node name="BackHolster1" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="6"]
+transform = Transform3D(1, -1.61087e-12, -7.95994e-12, -4.03267e-13, 0.968929, -0.247339, 7.96492e-12, 0.247339, 0.968929, 1.80532e-13, 1.24221, -0.0296802)
+bone_name = "spine_03.x"
+bone_idx = 3
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/BackHolster1"]
+transform = Transform3D(0.125998, -0.898655, -0.420171, -0.201841, -0.43791, 0.876068, -0.97128, -0.0255757, -0.236561, -0.0191971, 0.00879014, -0.149997)
+gizmo_extents = 0.5
+
+[node name="PreviewRifle" parent="MeshRoot/CharacterModel/root/Skeleton3D/BackHolster1/HolsterPoint" instance=ExtResource("18_rifle_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, -0.12)
+holster_slot = null
+damage = null
+damage_type = null
+fire_rate = null
+fire_mode = null
+burst_count = null
+effective_range = null
+clip_size = null
+max_ammo = null
+reload_type = null
+reload_time = null
+heat_per_shot = null
+overheat_threshold = null
+cooldown_rate = null
+overheat_lockout = null
+muzzle_velocity = null
+spread_hip = null
+spread_aim = null
+recoil_vertical = null
+recoil_horizontal = null
+aim_zoom = null
+aim_time = null
+knockback_force = null
+hitstun_duration = null
+impact_force = null
+
+[node name="BackHolster2" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="7"]
+transform = Transform3D(1, -1.61087e-12, -7.95994e-12, -4.03267e-13, 0.968929, -0.247339, 7.96492e-12, 0.247339, 0.968929, 1.80532e-13, 1.24221, -0.0296802)
+bone_name = "spine_03.x"
+bone_idx = 3
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/BackHolster2"]
+transform = Transform3D(0.119835, -0.92333, 0.36483, -0.198652, 0.337746, 0.920036, -0.972717, -0.182727, -0.142947, 0.152108, -0.0332878, -0.13147)
+gizmo_extents = 0.5
+
+[node name="PreviewRifle" parent="MeshRoot/CharacterModel/root/Skeleton3D/BackHolster2/HolsterPoint" instance=ExtResource("18_rifle_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, -0.12)
+holster_slot = null
+
+[node name="BackHolster3" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="8"]
+transform = Transform3D(1, -1.61087e-12, -7.95994e-12, -4.03267e-13, 0.968929, -0.247339, 7.96492e-12, 0.247339, 0.968929, 1.80532e-13, 1.24221, -0.0296802)
+bone_name = "spine_03.x"
+bone_idx = 3
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/BackHolster3"]
+transform = Transform3D(-0.999128, -0.0367547, -0.0198106, -0.0248578, 0.142391, 0.989498, -0.0335478, 0.989128, -0.14318, -2.17865e-12, 0.0854192, -0.290989)
+gizmo_extents = 0.5
+
+[node name="PreviewRifle" parent="MeshRoot/CharacterModel/root/Skeleton3D/BackHolster3/HolsterPoint" instance=ExtResource("18_rifle_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, -0.12)
+holster_slot = null
+
+[node name="HipHolster1" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="9"]
+transform = Transform3D(1, 1.59162e-12, -8.18545e-12, -3.41061e-13, 0.988686, 0.150001, 8.18545e-12, -0.150001, 0.988686, 0, 0.998653, -0.0192433)
+bone_name = "spine_01.x"
+bone_idx = 1
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/HipHolster1"]
+transform = Transform3D(-0.992316, -0.0223813, 0.121685, 0.122891, -0.29235, 0.948383, 0.0143484, 0.956049, 0.292854, -0.19588, -0.0500002, 2.98023e-08)
+gizmo_extents = 0.2
+
+[node name="PreviewSMG" parent="MeshRoot/CharacterModel/root/Skeleton3D/HipHolster1/HolsterPoint" instance=ExtResource("23_smg_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, -0.04)
+
+[node name="HipHolster2" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="10"]
+transform = Transform3D(1, 1.59162e-12, -8.18545e-12, -3.41061e-13, 0.988686, 0.150001, 8.18545e-12, -0.150001, 0.988686, 0, 0.998653, -0.0192433)
+bone_name = "spine_01.x"
+bone_idx = 1
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/HipHolster2"]
+transform = Transform3D(-0.972787, 0.0952754, -0.211204, -0.230787, -0.317637, 0.919697, 0.0205381, 0.943412, 0.330982, 0.178749, -0.046523, -0.0229231)
+gizmo_extents = 0.2
+
+[node name="PreviewPistol" parent="MeshRoot/CharacterModel/root/Skeleton3D/HipHolster2/HolsterPoint" instance=ExtResource("19_pistol_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, -0.04)
+holster_slot = null
+
+[node name="HipHolster3" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="11"]
+transform = Transform3D(0.0187393, -0.0516351, -0.99849, -0.192996, -0.98007, 0.0470604, -0.981021, 0.191823, -0.0283314, -0.0769624, 0.799152, 0.000683159)
+bone_name = "thigh_stretch.r"
+bone_idx = 24
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/HipHolster3"]
+transform = Transform3D(0.0363121, -0.949563, -0.311466, 0.28414, 0.308618, -0.907755, 0.958095, -0.0555375, 0.281016, 0.05231, 0.0711109, -0.264241)
+gizmo_extents = 0.2
+
+[node name="PreviewPistol" parent="MeshRoot/CharacterModel/root/Skeleton3D/HipHolster3/HolsterPoint" instance=ExtResource("19_pistol_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, -0.04)
+holster_slot = null
+
+[node name="MeleeSmallHolster1" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="12"]
+transform = Transform3D(1, 1.59162e-12, -8.18545e-12, -3.41061e-13, 0.988686, 0.150001, 8.18545e-12, -0.150001, 0.988686, 0, 0.998653, -0.0192433)
+bone_name = "spine_01.x"
+bone_idx = 1
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeSmallHolster1"]
+transform = Transform3D(0.0396671, -0.935562, -0.35053, 0.697882, -0.237691, 0.715091, -0.715112, -0.2612, 0.604792, 0.191364, -0.05, 0)
+gizmo_extents = 0.3
+
+[node name="PreviewSaber" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeSmallHolster1/HolsterPoint" instance=ExtResource("20_saber_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12)
+
+[node name="MeleeSmallHolster2" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="13"]
+transform = Transform3D(1, 1.59162e-12, -8.18545e-12, -3.41061e-13, 0.988686, 0.150001, 8.18545e-12, -0.150001, 0.988686, 0, 0.998653, -0.0192433)
+bone_name = "spine_01.x"
+bone_idx = 1
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeSmallHolster2"]
+transform = Transform3D(0.766016, -0.0263855, -0.601457, 0.641246, 0.0761315, 0.795217, 0.0449577, -0.996747, 0.0766595, -0.190073, 0.442147, -0.122154)
+gizmo_extents = 0.3
+
+[node name="PreviewSaber" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeSmallHolster2/HolsterPoint" instance=ExtResource("20_saber_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12)
+
+[node name="MeleeSmallHolster3" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="14"]
+transform = Transform3D(1, 1.59162e-12, -8.18545e-12, -3.41061e-13, 0.988686, 0.150001, 8.18545e-12, -0.150001, 0.988686, 0, 0.998653, -0.0192433)
+bone_name = "spine_01.x"
+bone_idx = 1
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeSmallHolster3"]
+transform = Transform3D(-0.683123, -0.671708, 0.286618, 0.642157, -0.365562, 0.673794, -0.347816, 0.644338, 0.681067, -0.191364, -0.08, 0.05)
+gizmo_extents = 0.3
+
+[node name="PreviewSaber" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeSmallHolster3/HolsterPoint" instance=ExtResource("20_saber_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12)
+
+[node name="MeleeLargeHolster1" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="15"]
+transform = Transform3D(1, -1.61087e-12, -7.95994e-12, -4.03267e-13, 0.968929, -0.247339, 7.96492e-12, 0.247339, 0.968929, 1.80532e-13, 1.24221, -0.0296802)
+bone_name = "spine_03.x"
+bone_idx = 3
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeLargeHolster1"]
+transform = Transform3D(0.94476, 0.0363791, -0.273421, 0.327759, -0.153374, 0.948919, 0.000307679, -0.987498, -0.157455, -0.0933812, 0.187133, -0.168365)
+gizmo_extents = 0.4
+
+[node name="PreviewSaber" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeLargeHolster1/HolsterPoint" instance=ExtResource("20_saber_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12)
+
+[node name="MeleeLargeHolster2" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="16"]
+transform = Transform3D(1, -1.61087e-12, -7.95994e-12, -4.03267e-13, 0.968929, -0.247339, 7.96492e-12, 0.247339, 0.968929, 1.80532e-13, 1.24221, -0.0296802)
+bone_name = "spine_03.x"
+bone_idx = 3
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeLargeHolster2"]
+transform = Transform3D(0.965673, 0.136953, 0.260875, -0.175238, -0.211677, 0.950122, 0.191743, -0.967696, -0.170913, 0.0748475, 0.191928, -0.16293)
+gizmo_extents = 0.4
+
+[node name="PreviewSaber" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeLargeHolster2/HolsterPoint" instance=ExtResource("20_saber_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12)
+
+[node name="MeleeLargeHolster3" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="17"]
+transform = Transform3D(1, -1.61087e-12, -7.95994e-12, -4.03267e-13, 0.968929, -0.247339, 7.96492e-12, 0.247339, 0.968929, 1.80532e-13, 1.24221, -0.0296802)
+bone_name = "spine_03.x"
+bone_idx = 3
+
+[node name="HolsterPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeLargeHolster3"]
+transform = Transform3D(0.999081, -0.0218066, 0.0102035, 0.0405429, -0.19572, 0.980556, -0.0137876, -0.980416, -0.195974, -0.00589863, 0.248783, -0.183718)
+gizmo_extents = 0.4
+
+[node name="PreviewSaber" parent="MeshRoot/CharacterModel/root/Skeleton3D/MeleeLargeHolster3/HolsterPoint" instance=ExtResource("20_saber_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12)
+
+[node name="RightHandGrip" type="BoneAttachment3D" parent="MeshRoot/CharacterModel/root/Skeleton3D" index="18"]
+transform = Transform3D(-0.0950049, -0.296185, -0.950394, -0.0641225, -0.950909, 0.302755, -0.993409, 0.0897049, 0.0713488, -0.406416, 0.90987, -0.0155391)
+bone_name = "hand.r"
+bone_idx = 11
+
+[node name="MeleeGripPoint" type="Marker3D" parent="MeshRoot/CharacterModel/root/Skeleton3D/RightHandGrip"]
+transform = Transform3D(-0.0861684, -0.278256, 0.956634, -0.854396, -0.473234, -0.214609, 0.512428, -0.835836, -0.196962, 0.0114883, 0.104775, -0.0427067)
+gizmo_extents = 0.15
+
+[node name="PreviewMeleeSword" parent="MeshRoot/CharacterModel/root/Skeleton3D/RightHandGrip/MeleeGripPoint" instance=ExtResource("20_saber_prefab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12)
+
 [node name="AnimationController" type="Node" parent="."]
 script = ExtResource("7_anim_ctrl")
 idle_anim = "Idle"
 walk_anim = "Walk"
+max_anim_speed = 2.5
 
 [node name="PlayerCamera" type="Node3D" parent="."]
 script = ExtResource("5_camera")
@@ -79,6 +273,9 @@ script = ExtResource("4_states")
 
 [node name="Combat" type="Node" parent="."]
 script = ExtResource("2_combat")
+max_shields = 50.0
+shield_regen_rate = 8.0
+shield_regen_delay = 4.0
 
 [node name="NetworkIdentity" type="Node" parent="."]
 script = ExtResource("3_network")
@@ -88,42 +285,36 @@ script = ExtResource("6_nametag")
 
 [node name="BodyTurn" type="Node3D" parent="."]
 script = ExtResource("10_body_turn")
-mesh_root = NodePath("../MeshRoot")
-max_turn_angle = 20.0
+max_turn_angle = 0.0
 turn_speed = 10.0
-strafe_lean = 3.0
 
 [node name="IKController" type="Node3D" parent="."]
 script = ExtResource("11_ik")
-enable_foot_ik = false
+enable_foot_ik = true
 enable_look_at = false
+enable_camera_head_tracking = true
+enable_vertical_look = true
 enable_strafe_ik = false
-hip_twist_amount = 25.0
-foot_angle_amount = 45.0
+spine_counter_twist = 0.0
 
 [node name="EquipmentManager" type="Node" parent="."]
 script = ExtResource("12_equip")
 
+[node name="MeleeComboController" type="Node" parent="."]
+script = ExtResource("21_melee_combo")
+
 [node name="WeaponAttachmentSetup" type="Node" parent="."]
 script = ExtResource("17_attach_setup")
 skeleton_path = NodePath("../MeshRoot/CharacterModel/root/Skeleton3D")
-rifle_lowered_offset = Vector3(-0.1, -0.12, 0.5)
-rifle_lowered_rotation = Vector3(-35, 180, 10)
-rifle_ready_offset = Vector3(-0.08, -0.08, 0.5)
-rifle_ready_rotation = Vector3(-25, 180, 5)
-rifle_aim_offset = Vector3(0.0, 0.12, 0.4)
-rifle_aim_rotation = Vector3(0, 180, 0)
-pistol_lowered_offset = Vector3(0.2, -0.15, 0.25)
-pistol_lowered_rotation = Vector3(-40, 180, 0)
-pistol_ready_offset = Vector3(0.15, -0.05, 0.3)
-pistol_ready_rotation = Vector3(-15, 180, 0)
-pistol_aim_offset = Vector3(0.0, 0.12, 0.35)
-pistol_aim_rotation = Vector3(0, 180, 0)
-lowered_ik_blend = 0.3
-ready_ik_blend = 0.6
-aim_ik_blend = 0.9
+hip_bone = "thigh_stretch.r"
+ik_blend_speed = 10.0
+pose_blend_speed = 8.0
 
 [node name="WeaponHUD" type="CanvasLayer" parent="."]
 script = ExtResource("15_weapon_hud")
+
+[node name="BoneHitboxSystem" type="Node" parent="."]
+script = ExtResource("22_bone_hitbox")
+skeleton_path = NodePath("../MeshRoot/CharacterModel/root/Skeleton3D")
 
 [editable path="MeshRoot/CharacterModel"]

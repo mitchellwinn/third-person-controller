@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://plasma_muzzle_flash"]
+
+[ext_resource type="Script" path="res://prefabs/effects/pixel_impact_effect.gd" id="1_script"]
+[ext_resource type="Shader" path="res://shaders/muzzle_flash.gdshader" id="2_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_plasma_muzzle_flash"]
+resource_name = "Plasma Muzzle Flash"
+shader = ExtResource("2_shader")
+shader_parameter/lifetime = 0.0
+shader_parameter/effect_intensity = 8.0
+shader_parameter/flash_color = Color(0.6, 0.9, 1, 1)
+shader_parameter/core_color = Color(0.2, 0.8, 1, 1)
+shader_parameter/pixel_scale = 30.0
+shader_parameter/expansion_speed = 35.0
+shader_parameter/core_size = 0.05
+shader_parameter/flash_radius = 0.7
+shader_parameter/flash_sharpness = 15.0
+shader_parameter/flare_rays = 8
+shader_parameter/flare_length = 0.5
+shader_parameter/flare_intensity = 1.0
+shader_parameter/spark_count = 10
+shader_parameter/spark_size = 0.02
+shader_parameter/spark_speed = 15.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_plasma_muzzle_flash"]
+size = Vector2(0.8, 0.8)
+
+[sub_resource type="Gradient" id="Gradient_flash"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_flash"]
+gradient = SubResource("Gradient_flash")
+
+[node name="PlasmaMuzzleFlash" type="Node3D"]
+script = ExtResource("1_script")
+lifetime = 0.07
+auto_start = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+material_override = SubResource("ShaderMaterial_plasma_muzzle_flash")
+billboard = 0
+alpha_cut = 2
+texture_filter = 0
+render_priority = 15
+texture = SubResource("GradientTexture2D_flash")

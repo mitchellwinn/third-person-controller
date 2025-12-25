@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://djo6ad7brty08"
+path="res://.godot/imported/EP4 ENDING LOOP.mp3-08a5b635e74599351152fbfc7f113ab5.mp3str"
+
+[deps]
+
+source_file="res://music/temp/EP4 ENDING LOOP.mp3"
+dest_files=["res://.godot/imported/EP4 ENDING LOOP.mp3-08a5b635e74599351152fbfc7f113ab5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

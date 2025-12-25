@@ -1,0 +1,46 @@
+{
+	"tree_id": "extraction_beacon_ready",
+	"npc_id": "extraction_beacon",
+	"name": "Extraction Beacon",
+	"nodes": [
+		{
+			"id": "greeting",
+			"speaker": "npc",
+			"text": "Uplink established. Station is ready to receive. Extraction window is active.",
+			"choices": [
+				{
+					"text": "Beam up to station",
+					"goto": "confirm_extraction"
+				},
+				{
+					"text": "Stay planetside"
+				}
+			]
+		},
+		{
+			"id": "confirm_extraction",
+			"speaker": "npc",
+			"text": "Confirm extraction? All carried items will be transported with you.",
+			"choices": [
+				{
+					"text": "Confirm - Extract now",
+					"goto": "extracting"
+				},
+				{
+					"text": "Wait"
+				}
+			]
+		},
+		{
+			"id": "extracting",
+			"speaker": "npc",
+			"text": "Extraction confirmed. Initiating teleport sequence... Safe travels, Operative.",
+			"on_exit": [
+				{
+					"type": "confirm_extraction",
+					"params": {}
+				}
+			]
+		}
+	]
+}

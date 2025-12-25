@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cx2nt5eut7x8y"
+path="res://.godot/imported/VOL OPT2.mp3-c3b01c7c1a4b4420af26766b49454929.mp3str"
+
+[deps]
+
+source_file="res://music/temp/VOL OPT2.mp3"
+dest_files=["res://.godot/imported/VOL OPT2.mp3-c3b01c7c1a4b4420af26766b49454929.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -57,10 +57,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 0
 script = ExtResource("1_script")
 
 [node name="Panel" type="PanelContainer" parent="."]
+mouse_filter = 0
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -105,10 +106,13 @@ layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/separation = 10
 
-[node name="NextIndicator" type="Label" parent="Panel/VBox/BottomRow"]
+[node name="NextIndicator" type="Button" parent="Panel/VBox/BottomRow"]
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
-theme_override_font_sizes/font_size = 14
-text = "▼ Press Enter to continue"
+theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.7, 0.7, 0.8, 1)
+theme_override_font_sizes/font_size = 15
+text = "Continue ▶"
+flat = true
 

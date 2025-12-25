@@ -1,0 +1,104 @@
+[gd_scene load_steps=3 format=3 uid="uid://grenade_launcher_weapon"]
+
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/weapon_component.gd" id="1_weapon"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_launcher"]
+albedo_color = Color(0.25, 0.22, 0.18, 1)
+metallic = 0.7
+roughness = 0.4
+emission_enabled = true
+emission = Color(1, 0.4, 0.1, 1)
+emission_energy_multiplier = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_accent"]
+albedo_color = Color(0.6, 0.3, 0.1, 1)
+metallic = 0.5
+roughness = 0.5
+
+[node name="GrenadeLauncher" type="Node3D"]
+script = ExtResource("1_weapon")
+item_id = "grenade_launcher_01"
+weapon_name = "M319 Grenade Launcher"
+holster_slot = "back_primary"
+projectile_path = "res://prefabs/projectiles/grenade.tscn"
+
+[node name="WeaponModel" type="Node3D" parent="."]
+
+[node name="Receiver" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_launcher")
+size = Vector3(0.08, 0.14, 0.35)
+
+[node name="Barrel" type="CSGCylinder3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.04, -0.4)
+material_override = SubResource("StandardMaterial3D_launcher")
+radius = 0.045
+height = 0.55
+
+[node name="BarrelInner" type="CSGCylinder3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.04, -0.55)
+material_override = SubResource("StandardMaterial3D_accent")
+radius = 0.035
+height = 0.25
+
+[node name="MuzzleBrake" type="CSGCylinder3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.04, -0.72)
+material_override = SubResource("StandardMaterial3D_accent")
+radius = 0.055
+height = 0.08
+
+[node name="Stock" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(0.98, 0, 0.2, 0, 1, 0, -0.2, 0, 0.98, 0, -0.02, 0.28)
+material_override = SubResource("StandardMaterial3D_launcher")
+size = Vector3(0.05, 0.1, 0.22)
+
+[node name="StockPad" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0.4)
+material_override = SubResource("StandardMaterial3D_accent")
+size = Vector3(0.06, 0.12, 0.03)
+
+[node name="Grip" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(0.92, 0, 0.39, 0, 1, 0, -0.39, 0, 0.92, 0, -0.12, 0.08)
+material_override = SubResource("StandardMaterial3D_launcher")
+size = Vector3(0.04, 0.12, 0.05)
+
+[node name="TriggerGuard" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+material_override = SubResource("StandardMaterial3D_launcher")
+size = Vector3(0.06, 0.02, 0.12)
+
+[node name="Foregrip" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, -0.25)
+material_override = SubResource("StandardMaterial3D_accent")
+size = Vector3(0.04, 0.1, 0.08)
+
+[node name="RotatingDrum" type="CSGCylinder3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, -0.1)
+material_override = SubResource("StandardMaterial3D_accent")
+radius = 0.06
+height = 0.12
+
+[node name="IronSightFront" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.5)
+material_override = SubResource("StandardMaterial3D_accent")
+size = Vector3(0.015, 0.04, 0.015)
+
+[node name="IronSightRear" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09, 0.05)
+material_override = SubResource("StandardMaterial3D_launcher")
+size = Vector3(0.04, 0.03, 0.02)
+
+[node name="GripPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.08)
+
+[node name="ForegripPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06, -0.25)
+
+[node name="AimPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="MuzzlePoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, -0.78)
+
+
+

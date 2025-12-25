@@ -11,6 +11,7 @@ signal go_to_test_pressed()
 @onready var connection_status_label: Label = $VBoxContainer/ConnectionStatus
 @onready var hub_button: Button = $VBoxContainer/ButtonContainer/HubButton
 @onready var test_button: Button = $VBoxContainer/ButtonContainer/TestButton
+@onready var reset_data_button: Button = $VBoxContainer/ButtonContainer/ResetDataButton
 @onready var quit_button: Button = $VBoxContainer/ButtonContainer/QuitButton
 
 # Command line state
@@ -46,6 +47,7 @@ func _ready():
 	
 	hub_button.pressed.connect(_on_hub_pressed)
 	test_button.pressed.connect(_on_test_pressed)
+	reset_data_button.pressed.connect(_on_reset_data_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 	
 	# Connect to Steam signals if available
@@ -102,13 +104,13 @@ func _start_dedicated_server():
 	print("[Server] Starting dedicated server on port ", server_port)
 	print("[Server] Max players: ", max_players)
 	print("[Server] Public IP: ", SERVER_LIST[1] if SERVER_LIST.size() > 1 else "N/A")
-	
+
 	# Start network server
 	if NetworkManager:
 		NetworkManager.start_server(server_port)
-	
-	# Go directly to test map for dedicated server
-	get_tree().change_scene_to_file("res://scenes/test.tscn")
+
+	# Load server root which manages zones as children
+	get_tree().change_scene_to_file("res://scenes/server_root.tscn")
 
 func _update_steam_status():
 	if not SteamManager:
@@ -144,15 +146,59 @@ func _on_test_pressed():
 	go_to_test_pressed.emit()
 	_connect_and_load("res://scenes/test.tscn")
 
+func _on_reset_data_pressed():
+	## Delete all character data for this Steam user (for testing)
+	## Also recreates inventory tables to fix any schema issues
+	if not SteamManager:
+		_update_connection_status("Cannot reset - no Steam", Color.RED)
+		return
+	
+	var steam_id = SteamManager.get_steam_id()
+	if steam_id <= 0:
+		_update_connection_status("Cannot reset - no Steam ID", Color.RED)
+		return
+	
+	var item_db = get_node_or_null("/root/ItemDatabase")
+	if item_db:
+		# First recreate tables to fix any foreign key constraint issues
+		if item_db.has_method("recreate_inventory_tables"):
+			item_db.recreate_inventory_tables()
+		
+		# Then delete character data
+		if item_db.has_method("delete_character_data"):
+			item_db.delete_character_data(steam_id)
+		
+		_update_connection_status("Character data reset!", Color.GREEN)
+		print("[TitleMenu] Reset character data for Steam ID: ", steam_id)
+	else:
+		# Fallback: delete via DatabaseManager directly
+		var db = get_node_or_null("/root/DatabaseManager")
+		if db:
+			# Delete equipment, inventory, and character data
+			db.execute_query("DELETE FROM player_equipment WHERE steam_id = ?;", [steam_id])
+			db.execute_query("DELETE FROM player_inventory WHERE steam_id = ?;", [steam_id])
+			db.execute_query("DELETE FROM characters WHERE steam_id = ?;", [steam_id])
+			_update_connection_status("Character data reset!", Color.GREEN)
+			print("[TitleMenu] Reset character data for Steam ID: ", steam_id)
+		else:
+			_update_connection_status("Cannot reset - no database", Color.RED)
+
 func _on_quit_pressed():
 	get_tree().quit()
 
 func _connect_and_load(scene_path: String):
-	# If running as server, just start server and load
+	# If running as server (listen server mode), start server and load server_root
 	if is_server and not is_dedicated:
 		if NetworkManager:
 			NetworkManager.start_server(server_port)
-		get_tree().change_scene_to_file(scene_path)
+			# Register server player with Steam info
+			if SteamManager:
+				var steam_id = SteamManager.get_steam_id()
+				var steam_name = SteamManager.get_persona_name()
+				print("[Server] Registering host as: ", steam_name, " (Steam ID: ", steam_id, ")")
+				NetworkManager.register_player(steam_id, steam_name, 0)
+		# Server loads server_root which manages zones as children
+		get_tree().change_scene_to_file("res://scenes/server_root.tscn")
 		return
 	
 	# Client mode - try to connect to servers
@@ -190,12 +236,23 @@ func _on_connected_to_server():
 	connection_timer.stop()
 	
 	var server = SERVER_LIST[current_server_index]
-	_update_connection_status("Connected to " + server, Color.GREEN)
+	_update_connection_status("Connected! Joining zone...", Color.GREEN)
 	print("[Client] Connected to: ", server)
-	
-	# Small delay to show success message
-	await get_tree().create_timer(0.5).timeout
-	get_tree().change_scene_to_file(pending_scene)
+
+	# Determine zone type from pending_scene
+	var zone_type = "hub"
+	if pending_scene.contains("test"):
+		zone_type = "test"
+
+	# Register player with Steam info and requested zone
+	if NetworkManager and SteamManager:
+		var steam_id = SteamManager.get_steam_id()
+		var steam_name = SteamManager.get_persona_name()
+		print("[Client] Registering as: %s (Steam ID: %d), requesting zone: %s" % [steam_name, steam_id, zone_type])
+		NetworkManager.register_player(steam_id, steam_name, 0, zone_type)
+
+	# Server will assign us to the requested zone and send _rpc_client_load_zone
+	print("[Client] Waiting for server to assign zone...")
 
 func _on_connection_failed():
 	_try_next_server()
@@ -218,4 +275,5 @@ func _try_next_server():
 func _set_buttons_enabled(enabled: bool):
 	hub_button.disabled = not enabled
 	test_button.disabled = not enabled
+	reset_data_button.disabled = not enabled
 	quit_button.disabled = not enabled

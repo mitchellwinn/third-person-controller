@@ -1,0 +1,46 @@
+{
+	"tree_id": "extraction_beacon_idle",
+	"npc_id": "extraction_beacon",
+	"name": "Extraction Beacon",
+	"nodes": [
+		{
+			"id": "greeting",
+			"speaker": "npc",
+			"text": "Extraction beacon standing by. No active uplink to station. Signal must be initiated before extraction is possible.",
+			"choices": [
+				{
+					"text": "Initiate signal to station",
+					"goto": "confirm_signal"
+				},
+				{
+					"text": "Not yet"
+				}
+			]
+		},
+		{
+			"id": "confirm_signal",
+			"speaker": "npc",
+			"text": "Warning: Initiating signal will broadcast your position. Hostiles may be drawn to this location. Proceed?",
+			"choices": [
+				{
+					"text": "Begin transmission",
+					"goto": "signal_started"
+				},
+				{
+					"text": "Cancel"
+				}
+			]
+		},
+		{
+			"id": "signal_started",
+			"speaker": "npc",
+			"text": "Signal initiated. Establishing uplink to orbital station... Stand by for confirmation.",
+			"on_exit": [
+				{
+					"type": "start_signal",
+					"params": {}
+				}
+			]
+		}
+	]
+}

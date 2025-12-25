@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c1v2cceaq78y3"
+path="res://.godot/imported/CLEAR ST.mp3-156b7d0e90502e2d180a3f57177befea.mp3str"
+
+[deps]
+
+source_file="res://music/temp/CLEAR ST.mp3"
+dest_files=["res://.godot/imported/CLEAR ST.mp3-156b7d0e90502e2d180a3f57177befea.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

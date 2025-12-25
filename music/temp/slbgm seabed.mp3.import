@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://6d8xjlo8astd"
+path="res://.godot/imported/slbgm seabed.mp3-9fe3502bbba53f4a4c497dfffe9ca7f8.mp3str"
+
+[deps]
+
+source_file="res://music/temp/slbgm seabed.mp3"
+dest_files=["res://.godot/imported/slbgm seabed.mp3-9fe3502bbba53f4a4c497dfffe9ca7f8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

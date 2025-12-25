@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://energy_bolt_medium_proj"]
+
+[ext_resource type="Script" path="res://prefabs/projectiles/energy_bolt_medium.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://prefabs/effects/pixel_impact_effect.tscn" id="2_effect"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bolt"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1.0, 0.7, 0.2, 1.0)
+emission_enabled = true
+emission = Color(1.0, 0.6, 0.1, 1)
+emission_energy_multiplier = 3.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bolt"]
+radius = 0.025
+height = 0.12
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bolt"]
+radius = 0.025
+height = 0.12
+
+[node name="EnergyBoltMedium" type="Area3D"]
+script = ExtResource("1_script")
+impact_effect = ExtResource("2_effect")
+impact_sound = "res://sounds/explosion_1"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_bolt")
+
+[node name="BoltMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_bolt")
+surface_material_override/0 = SubResource("StandardMaterial3D_bolt")
+
+[node name="GlowLight" type="OmniLight3D" parent="."]
+light_color = Color(1.0, 0.6, 0.1, 1)
+light_energy = 0.5
+omni_range = 1.5
+omni_attenuation = 1.5
+

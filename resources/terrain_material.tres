@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://terrain_blend_mat"]
+
+[ext_resource type="Shader" path="res://shaders/terrain_blend.gdshader" id="1_shader"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/height_blend_range = 8.0
+shader_parameter/mid_height = 10.0
+shader_parameter/high_height = 25.0
+shader_parameter/cliff_threshold = 0.6
+shader_parameter/cliff_blend_range = 0.15
+shader_parameter/color_low = Vector3(0.25, 0.35, 0.15)
+shader_parameter/color_mid = Vector3(0.35, 0.3, 0.2)
+shader_parameter/color_high = Vector3(0.5, 0.48, 0.45)
+shader_parameter/color_cliff = Vector3(0.4, 0.38, 0.35)
+shader_parameter/apply_normal_shading = true
+shader_parameter/normal_shading_strength = 0.745
+shader_parameter/noise_scale = 0.1
+shader_parameter/noise_strength = 0.15
+shader_parameter/color_variation = 0.1

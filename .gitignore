@@ -4,3 +4,6 @@
 
 # Local Godot path configuration (user-specific)
 godot.cfg
+.claude/
+*.TMP
+temp_*.dll

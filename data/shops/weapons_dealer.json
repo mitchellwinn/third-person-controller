@@ -1,0 +1,43 @@
+{
+	"shop_id": "weapons_dealer",
+	"name": "Black Market Arms",
+	"description": "Rare and powerful weapons for those who can afford them.",
+	"currency": "credits",
+	"price_multiplier": 1.5,
+	"restock_time": 0,
+	"inventory": [
+		{
+			"item_id": "energy_rifle_01",
+			"stock": 3,
+			"price_override": null
+		},
+		{
+			"item_id": "grenade_launcher_01",
+			"stock": 2,
+			"price_override": null
+		},
+		{
+			"item_id": "plasma_smg_01",
+			"stock": 5,
+			"price_override": null
+		},
+		{
+			"item_id": "energy_saber_01",
+			"stock": 1,
+			"price_override": 1500
+		},
+		{
+			"item_id": "ammo_energy_heavy",
+			"stock": -1,
+			"price_override": 20
+		},
+		{
+			"item_id": "ammo_grenades",
+			"stock": 50,
+			"price_override": 75
+		}
+	]
+}
+
+
+

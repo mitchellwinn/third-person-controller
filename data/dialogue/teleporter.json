@@ -1,0 +1,65 @@
+{
+	"tree_id": "teleporter_main",
+	"npc_id": "teleporter",
+	"name": "Teleporter",
+	"nodes": [
+		{
+			"id": "greeting",
+			"speaker": "npc",
+			"text": "Orbital scan complete. Planet Mirth is in range. Ready for planetary descent?",
+			"choices": [
+				{
+					"text": "I am ready",
+					"goto": "confirm_descent"
+				},
+				{
+					"text": "I would like to use a rental loadout",
+					"goto": "rental_explain"
+				},
+				{
+					"text": "Not yet"
+				}
+			]
+		},
+		{
+			"id": "confirm_descent",
+			"speaker": "npc",
+			"text": "Confirmed. Initiating teleport sequence. Good luck down there, Operative.",
+			"on_exit": [
+				{
+					"type": "descend_planet",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "rental_explain",
+			"speaker": "npc",
+			"text": "Rental loadout selected. Your current inventory will be transferred to the station bank. You'll receive standard issue equipment: Suppressed SMG, Plasma Repeater, and Energy Saber.",
+			"choices": [
+				{
+					"text": "Proceed with rental",
+					"goto": "rental_confirm"
+				},
+				{
+					"text": "I'll use my own gear",
+					"goto": "confirm_descent"
+				},
+				{
+					"text": "Cancel"
+				}
+			]
+		},
+		{
+			"id": "rental_confirm",
+			"speaker": "npc",
+			"text": "Inventory banked. Rental equipment issued. Initiating descent to Mirth.",
+			"on_exit": [
+				{
+					"type": "descend_rental",
+					"params": {}
+				}
+			]
+		}
+	]
+}

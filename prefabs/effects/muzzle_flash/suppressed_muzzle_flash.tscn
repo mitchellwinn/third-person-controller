@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://crefg0etw75lu"]
+
+[ext_resource type="Script" path="res://prefabs/effects/pixel_impact_effect.gd" id="1_script"]
+[ext_resource type="Shader" path="res://shaders/muzzle_flash.gdshader" id="2_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_suppressed_muzzle_flash"]
+resource_name = "Suppressed Muzzle Flash"
+render_priority = 0
+shader = ExtResource("2_shader")
+shader_parameter/lifetime = 1.0
+shader_parameter/effect_intensity = 5.431
+shader_parameter/flash_color = Color(0.8, 0.6, 0.4, 1)
+shader_parameter/core_color = Color(0.9, 0.7, 0.3, 1)
+shader_parameter/pixel_scale = 25.0
+shader_parameter/expansion_speed = 20.0
+shader_parameter/core_size = 0.03
+shader_parameter/flash_radius = 0.4
+shader_parameter/flash_sharpness = 10.0
+shader_parameter/flare_rays = 4
+shader_parameter/flare_length = 0.775
+shader_parameter/flare_intensity = 0.3
+shader_parameter/spark_count = 4
+shader_parameter/spark_size = 0.015
+shader_parameter/spark_speed = 8.0
+
+[sub_resource type="Gradient" id="Gradient_653qm"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0kit6"]
+gradient = SubResource("Gradient_653qm")
+
+[node name="SuppressedMuzzleFlash" type="Node3D"]
+script = ExtResource("1_script")
+lifetime = 0.06
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+material_override = SubResource("ShaderMaterial_suppressed_muzzle_flash")
+billboard = 0
+alpha_cut = 2
+texture_filter = 0
+render_priority = 15
+texture = SubResource("GradientTexture2D_0kit6")

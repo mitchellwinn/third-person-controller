@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://djk8mq2xnhfv3"]
+
+[ext_resource type="Script" path="res://scenes/ui/interaction_prompt.gd" id="1_prompt"]
+[ext_resource type="Theme" path="res://resources/themes/theme_hud.tres" id="2_theme"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.08, 0.08, 0.12, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.7, 1.0, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0.2, 0.4, 0.8, 0.3)
+shadow_size = 4
+
+[node name="InteractionPrompt" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_prompt")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -18.0
+offset_right = 60.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="HBox" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="KeyLabel" type="Label" parent="PanelContainer/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1.0, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.2, 0.3, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 18
+text = "[E]"
+horizontal_alignment = 1
+
+[node name="ActionLabel" type="Label" parent="PanelContainer/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 14
+text = "Talk"
+horizontal_alignment = 1
+
+
+

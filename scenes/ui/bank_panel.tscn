@@ -1,0 +1,135 @@
+[gd_scene load_steps=2 format=3 uid="uid://bank_panel_scene"]
+
+[ext_resource type="Script" path="res://scenes/ui/bank_panel.gd" id="1_script"]
+
+[node name="BankPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="MainPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -300.0
+offset_right = 450.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelMargin" type="MarginContainer" parent="MainPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/PanelMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="MainPanel/PanelMargin/VBox"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MainPanel/PanelMargin/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Station Storage"
+
+[node name="CloseButton" type="Button" parent="MainPanel/PanelMargin/VBox/Header"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "X"
+
+[node name="HSeparator" type="HSeparator" parent="MainPanel/PanelMargin/VBox"]
+layout_mode = 2
+
+[node name="Content" type="HBoxContainer" parent="MainPanel/PanelMargin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="InventorySection" type="VBoxContainer" parent="MainPanel/PanelMargin/VBox/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="InventoryHeader" type="HBoxContainer" parent="MainPanel/PanelMargin/VBox/Content/InventorySection"]
+layout_mode = 2
+
+[node name="InventoryLabel" type="Label" parent="MainPanel/PanelMargin/VBox/Content/InventorySection/InventoryHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Inventory (0/20)"
+
+[node name="InventoryScroll" type="ScrollContainer" parent="MainPanel/PanelMargin/VBox/Content/InventorySection"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="InventoryGrid" type="GridContainer" parent="MainPanel/PanelMargin/VBox/Content/InventorySection/InventoryScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 4
+
+[node name="VSeparator" type="VSeparator" parent="MainPanel/PanelMargin/VBox/Content"]
+layout_mode = 2
+
+[node name="BankSection" type="VBoxContainer" parent="MainPanel/PanelMargin/VBox/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+
+[node name="BankHeader" type="HBoxContainer" parent="MainPanel/PanelMargin/VBox/Content/BankSection"]
+layout_mode = 2
+
+[node name="BankLabel" type="Label" parent="MainPanel/PanelMargin/VBox/Content/BankSection/BankHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Bank (0/40)"
+
+[node name="BankScroll" type="ScrollContainer" parent="MainPanel/PanelMargin/VBox/Content/BankSection"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="BankGrid" type="GridContainer" parent="MainPanel/PanelMargin/VBox/Content/BankSection/BankScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 6
+
+[node name="Footer" type="HBoxContainer" parent="MainPanel/PanelMargin/VBox"]
+layout_mode = 2
+
+[node name="HelpLabel" type="Label" parent="MainPanel/PanelMargin/VBox/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 12
+text = "Double-click items to transfer between inventory and bank"

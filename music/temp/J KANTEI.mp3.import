@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ccqf0ruoqifn4"
+path="res://.godot/imported/J KANTEI.mp3-b00415c0ea49ca245aba99915078ecc6.mp3str"
+
+[deps]
+
+source_file="res://music/temp/J KANTEI.mp3"
+dest_files=["res://.godot/imported/J KANTEI.mp3-b00415c0ea49ca245aba99915078ecc6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

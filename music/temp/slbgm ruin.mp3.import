@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://db5gr2bxfsh1i"
+path="res://.godot/imported/slbgm ruin.mp3-8f872f8f079acdc1af8fbea8868d7a6a.mp3str"
+
+[deps]
+
+source_file="res://music/temp/slbgm ruin.mp3"
+dest_files=["res://.godot/imported/slbgm ruin.mp3-8f872f8f079acdc1af8fbea8868d7a6a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

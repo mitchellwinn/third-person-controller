@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://wnfyn64w6tkq"
+path="res://.godot/imported/slbgm cave.mp3-63f64c2e0b1d64ee2d5896a976c75eeb.mp3str"
+
+[deps]
+
+source_file="res://music/temp/slbgm cave.mp3"
+dest_files=["res://.godot/imported/slbgm cave.mp3-63f64c2e0b1d64ee2d5896a976c75eeb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

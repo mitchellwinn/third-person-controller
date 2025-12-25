@@ -52,6 +52,12 @@ func leave_squad() -> void:
 	if not is_in_squad:
 		return
 	
+	# Notify mission manager before leaving
+	var was_leader = is_squad_leader
+	var mission_manager = get_node_or_null("/root/MissionManager")
+	if mission_manager and mission_manager.has_method("on_leave_squad"):
+		mission_manager.on_leave_squad()
+	
 	SteamManager.leave_lobby()
 	_reset_squad_state()
 	squad_disbanded.emit()
@@ -99,6 +105,18 @@ func _on_lobby_joined(lobby_id: int, response: int):
 		if kicked == "1":
 			leave_squad()
 			return
+		
+		# Get leader's deployment if joining an existing squad
+		if not is_squad_leader:
+			var leader_mission = SteamManager.get_lobby_data("current_mission")
+			var leader_step = SteamManager.get_lobby_data("current_step")
+			if not leader_mission.is_empty():
+				var mission_manager = get_node_or_null("/root/MissionManager")
+				if mission_manager and mission_manager.has_method("on_join_squad"):
+					mission_manager.on_join_squad({
+						"mission_id": leader_mission,
+						"step_index": int(leader_step) if not leader_step.is_empty() else 0
+					})
 		
 		squad_formed.emit(Steam.getLobbyOwner(lobby_id), squad_members)
 
@@ -211,6 +229,27 @@ func select_mission(mission_id: String) -> bool:
 	
 	selected_mission = mission_id
 	SteamManager.set_lobby_data("selected_mission", mission_id)
+	
+	# Also update current deployment for HUD sync
+	SteamManager.set_lobby_data("current_mission", mission_id)
+	SteamManager.set_lobby_data("current_step", "0")
+	
+	return true
+
+func sync_deployment(mission_id: String, step_index: int) -> bool:
+	## Sync deployment state to squad (leader only)
+	if not is_squad_leader:
+		return false
+	
+	SteamManager.set_lobby_data("current_mission", mission_id)
+	SteamManager.set_lobby_data("current_step", str(step_index))
+	return true
+
+func clear_deployment() -> bool:
+	## Clear deployment (leader only, or when leaving squad)
+	if is_squad_leader:
+		SteamManager.set_lobby_data("current_mission", "")
+		SteamManager.set_lobby_data("current_step", "")
 	return true
 
 func get_selected_mission() -> String:

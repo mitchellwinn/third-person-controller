@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2tdpuhyexe2c"]
+
+[ext_resource type="Script" path="res://prefabs/effects/pixel_impact_effect.gd" id="1_script"]
+[ext_resource type="Shader" path="res://shaders/pixel_impact_effect.gdshader" id="2_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pixel_impact"]
+resource_name = "Pixel Impact Effect"
+render_priority = 0
+shader = ExtResource("2_shader")
+shader_parameter/lifetime = 0.375
+shader_parameter/effect_intensity = 3.0
+shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/inner_radius = 0.372
+shader_parameter/outer_radius = 0.402
+shader_parameter/pixel_scale = 17.022
+shader_parameter/expansion_rate = 1.152
+shader_parameter/fade_in_duration = 0.058
+shader_parameter/fade_out_duration = 0.5
+shader_parameter/noise_strength = 0.266
+shader_parameter/noise_scale = 12.115
+shader_parameter/ring_count = 1.22
+shader_parameter/ring_sharpness = 0.1
+shader_parameter/sparkle_count = 7.246
+shader_parameter/sparkle_length = 0.515
+shader_parameter/sparkle_speed = 0.375
+
+[sub_resource type="Gradient" id="Gradient_ivhi3"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gmdjq"]
+gradient = SubResource("Gradient_ivhi3")
+
+[node name="PixelImpactEffect" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+material_override = SubResource("ShaderMaterial_pixel_impact")
+billboard = 0
+alpha_cut = 2
+texture_filter = 0
+render_priority = 10
+texture = SubResource("GradientTexture2D_gmdjq")

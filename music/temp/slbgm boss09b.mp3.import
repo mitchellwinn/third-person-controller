@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://chbq6q844uvdh"
+path="res://.godot/imported/slbgm boss09b.mp3-082f9f310b9960753e50315b1c7bcfa1.mp3str"
+
+[deps]
+
+source_file="res://music/temp/slbgm boss09b.mp3"
+dest_files=["res://.godot/imported/slbgm boss09b.mp3-082f9f310b9960753e50315b1c7bcfa1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

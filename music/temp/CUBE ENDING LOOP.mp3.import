@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cre2a0mob5uvp"
+path="res://.godot/imported/CUBE ENDING LOOP.mp3-3011db92a61784a0c8dc9080d0b21d79.mp3str"
+
+[deps]
+
+source_file="res://music/temp/CUBE ENDING LOOP.mp3"
+dest_files=["res://.godot/imported/CUBE ENDING LOOP.mp3-3011db92a61784a0c8dc9080d0b21d79.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://8x5jag1rkp23"
+path="res://.godot/imported/slbgm desert.mp3-889d0c1d9b6f803edd49513719820a84.mp3str"
+
+[deps]
+
+source_file="res://music/temp/slbgm desert.mp3"
+dest_files=["res://.godot/imported/slbgm desert.mp3-889d0c1d9b6f803edd49513719820a84.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

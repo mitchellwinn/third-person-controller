@@ -7,16 +7,17 @@
 			"type": "weapon",
 			"subtype": "rifle",
 			"size": "large",
+			"weight": 8.5,
 			"rarity": "uncommon",
 			"base_value": 800,
 			"weapon_data": {
 				"damage": 85,
-				"damage_type": "energy",
+				"damage_type": "energy_large",
 				"fire_rate": 0.8,
 				"fire_mode": "semi",
 				"range": 150.0,
 				"clip_size": 1,
-				"max_ammo": 20,
+				"ammo_type": "energy_heavy",
 				"reload_type": "magazine",
 				"reload_time": 1.2,
 				"projectile_prefab": "res://prefabs/projectiles/energy_bolt.tscn",
@@ -28,10 +29,84 @@
 				"aim_zoom": 2.0,
 				"aim_time": 0.3,
 				"knockback_force": 15.0,
-				"hitstun_duration": 0.5
+				"hitstun_duration": 0.5,
+				"muzzle_flash": "res://prefabs/effects/muzzle_flash/heavy_muzzle_flash.tscn",
+				"fire_sound": "res://sounds/energy_rifle_fire.wav"
 			},
 			"holster_slot": "back_primary",
 			"prefab_path": "res://prefabs/weapons/energy_rifle.tscn"
+		},
+		{
+			"id": "assault_rifle_ma5",
+			"name": "Assault Rifle",
+			"description": "Reliable 60-round assault rifle. High rate of fire with manageable recoil. The workhorse of infantry combat.",
+			"type": "weapon",
+			"subtype": "rifle",
+			"size": "large",
+			"weight": 7.0,
+			"rarity": "common",
+			"base_value": 500,
+			"weapon_data": {
+				"damage": 12,
+				"damage_type": "energy_medium",
+				"fire_rate": 15.0,
+				"fire_mode": "auto",
+				"range": 80.0,
+				"clip_size": 60,
+				"ammo_type": "energy_medium",
+				"reload_type": "magazine",
+				"reload_time": 2.0,
+				"projectile_prefab": "res://prefabs/projectiles/energy_bolt_medium.tscn",
+				"muzzle_velocity": 140.0,
+				"spread_hip": 3.5,
+				"spread_aim": 1.2,
+				"recoil_vertical": 1.8,
+				"recoil_horizontal": 1.2,
+				"aim_zoom": 1.3,
+				"aim_time": 0.2,
+				"knockback_force": 0.5,
+				"hitstun_duration": 0.02,
+				"muzzle_flash": "res://prefabs/effects/muzzle_flash/energy_muzzle_flash.tscn",
+				"fire_sound": "res://sounds/60_round_fire.wav"
+			},
+			"holster_slot": "back_primary",
+			"prefab_path": "res://prefabs/weapons/assault_rifle.tscn"
+		},
+		{
+			"id": "suppressed_smg_m7s",
+			"name": "Suppressed SMG",
+			"description": "Compact suppressed submachine gun. High fire rate with reduced sound signature. Excellent accuracy when scoped.",
+			"type": "weapon",
+			"subtype": "smg",
+			"size": "medium",
+			"weight": 4.0,
+			"rarity": "uncommon",
+			"base_value": 650,
+			"weapon_data": {
+				"damage": 10,
+				"damage_type": "energy_small",
+				"fire_rate": 15.0,
+				"fire_mode": "auto",
+				"range": 45.0,
+				"clip_size": 48,
+				"ammo_type": "energy_light",
+				"reload_type": "magazine",
+				"reload_time": 1.8,
+				"projectile_prefab": "res://prefabs/projectiles/energy_bolt_small.tscn",
+				"muzzle_velocity": 110.0,
+				"spread_hip": 2.0,
+				"spread_aim": 0.4,
+				"recoil_vertical": 2.8,
+				"recoil_horizontal": 0.3,
+				"aim_zoom": 1.8,
+				"aim_time": 0.15,
+				"knockback_force": 0.3,
+				"hitstun_duration": 0.01,
+				"muzzle_flash": "res://prefabs/effects/muzzle_flash/suppressed_muzzle_flash.tscn",
+				"fire_sound": "res://sounds/suppress_smg_fire.wav"
+			},
+			"holster_slot": "back_secondary",
+			"prefab_path": "res://prefabs/weapons/suppressed_smg.tscn"
 		},
 		{
 			"id": "energy_pistol_01",
@@ -40,16 +115,17 @@
 			"type": "weapon",
 			"subtype": "pistol",
 			"size": "small",
+			"weight": 1.5,
 			"rarity": "common",
 			"base_value": 200,
 			"weapon_data": {
 				"damage": 15,
-				"damage_type": "energy",
+				"damage_type": "energy_small",
 				"fire_rate": 5.0,
 				"fire_mode": "semi",
 				"range": 50.0,
 				"clip_size": 12,
-				"max_ammo": 60,
+				"ammo_type": "energy_light",
 				"reload_type": "magazine",
 				"reload_time": 1.5,
 				"projectile_prefab": "res://prefabs/projectiles/energy_bolt_small.tscn",
@@ -59,7 +135,9 @@
 				"recoil_vertical": 3.0,
 				"recoil_horizontal": 1.0,
 				"aim_zoom": 1.2,
-				"aim_time": 0.15
+				"aim_time": 0.15,
+				"muzzle_flash": "res://prefabs/effects/muzzle_flash/energy_muzzle_flash.tscn",
+				"fire_sound": "res://sounds/sidekick_fire.wav"
 			},
 			"holster_slot": "hip_right",
 			"prefab_path": "res://prefabs/weapons/energy_pistol.tscn"
@@ -67,20 +145,21 @@
 		{
 			"id": "plasma_smg_01",
 			"name": "Plasma Repeater",
-			"description": "High fire-rate plasma weapon that overheats instead of reloading.",
+			"description": "High fire-rate plasma weapon that overheats instead of reloading. No ammo required.",
 			"type": "weapon",
 			"subtype": "smg",
 			"size": "medium",
+			"weight": 4.5,
 			"rarity": "uncommon",
 			"base_value": 750,
 			"weapon_data": {
 				"damage": 12,
-				"damage_type": "plasma",
+				"damage_type": "energy_small",
 				"fire_rate": 15.0,
 				"fire_mode": "auto",
 				"range": 40.0,
 				"clip_size": 100,
-				"max_ammo": -1,
+				"ammo_type": "",
 				"reload_type": "overheat",
 				"heat_per_shot": 2.5,
 				"overheat_threshold": 100.0,
@@ -93,7 +172,8 @@
 				"recoil_vertical": 1.0,
 				"recoil_horizontal": 0.8,
 				"aim_zoom": 1.1,
-				"aim_time": 0.1
+				"aim_time": 0.1,
+				"muzzle_flash": "res://prefabs/effects/muzzle_flash/plasma_muzzle_flash.tscn"
 			},
 			"holster_slot": "back_secondary",
 			"prefab_path": "res://prefabs/weapons/plasma_smg.tscn"
@@ -105,11 +185,12 @@
 			"type": "weapon",
 			"subtype": "melee",
 			"size": "medium",
+			"weight": 2.0,
 			"rarity": "uncommon",
 			"base_value": 600,
 			"weapon_data": {
 				"damage": 45,
-				"damage_type": "energy",
+				"damage_type": "melee",
 				"attack_speed": 2.0,
 				"attack_range": 1.8,
 				"knockback_force": 10.0,
@@ -119,8 +200,116 @@
 			},
 			"holster_slot": "hip_left",
 			"prefab_path": "res://prefabs/weapons/energy_saber.tscn"
+		},
+		{
+			"id": "grenade_launcher_01",
+			"name": "Grenade Launcher",
+			"description": "Single-shot grenade launcher. Fires explosive rounds that detonate on impact, dealing massive area damage.",
+			"type": "weapon",
+			"subtype": "launcher",
+			"size": "large",
+			"weight": 9.0,
+			"rarity": "rare",
+			"base_value": 1200,
+			"weapon_data": {
+				"damage": 0,
+				"damage_type": "explosive",
+				"fire_rate": 0.5,
+				"fire_mode": "semi",
+				"range": 100.0,
+				"clip_size": 1,
+				"ammo_type": "grenades",
+				"reload_type": "magazine",
+				"reload_time": 2.5,
+				"projectile_prefab": "res://prefabs/projectiles/grenade.tscn",
+				"muzzle_velocity": 35.0,
+				"spread_hip": 2.0,
+				"spread_aim": 0.5,
+				"recoil_vertical": 12.0,
+				"recoil_horizontal": 3.0,
+				"aim_zoom": 1.5,
+				"aim_time": 0.35,
+				"knockback_force": 0.0,
+				"hitstun_duration": 0.0,
+				"muzzle_flash": "res://prefabs/effects/muzzle_flash/heavy_muzzle_flash.tscn",
+				"fire_sound": "res://sounds/grenade_launcher_fire.wav"
+			},
+			"holster_slot": "back_primary",
+			"prefab_path": "res://prefabs/weapons/grenade_launcher.tscn"
+		},
+		{
+			"id": "ammo_energy_light",
+			"name": "Light Energy Cells",
+			"description": "Compact energy cells for pistols and SMGs. High capacity, lower power output.",
+			"type": "ammo",
+			"ammo_type": "energy_light",
+			"stack_size": 500,
+			"base_value": 2,
+			"rarity": "common"
+		},
+		{
+			"id": "ammo_energy_medium",
+			"name": "Medium Energy Cells",
+			"description": "Standard energy cells for assault rifles. Balanced power and capacity.",
+			"type": "ammo",
+			"ammo_type": "energy_medium",
+			"stack_size": 300,
+			"base_value": 4,
+			"rarity": "common"
+		},
+		{
+			"id": "ammo_energy_heavy",
+			"name": "Heavy Energy Cells",
+			"description": "High-density energy cells for heavy weapons. Maximum power output.",
+			"type": "ammo",
+			"ammo_type": "energy_heavy",
+			"stack_size": 50,
+			"base_value": 15,
+			"rarity": "uncommon"
+		},
+		{
+			"id": "ammo_grenades",
+			"name": "Frag Grenades",
+			"description": "High-explosive fragmentation grenades for grenade launchers.",
+			"type": "ammo",
+			"ammo_type": "grenades",
+			"stack_size": 20,
+			"base_value": 50,
+			"rarity": "uncommon"
+		},
+		{
+			"id": "credit_chip",
+			"name": "Credit Chip",
+			"description": "Digital currency stored on a chip. Must be extracted to convert to actual credits.",
+			"type": "currency",
+			"stack_size": 9999,
+			"base_value": 1,
+			"rarity": "common",
+			"can_drop": true
 		}
 	],
+	"ammo_types": {
+		"energy_light": {
+			"name": "Light Energy",
+			"description": "For pistols and SMGs",
+			"color": "#4fc3f7"
+		},
+		"energy_medium": {
+			"name": "Medium Energy",
+			"description": "For assault rifles",
+			"color": "#66bb6a"
+		},
+		"energy_heavy": {
+			"name": "Heavy Energy",
+			"description": "For heavy weapons",
+			"color": "#ff7043"
+		},
+		"grenades": {
+			"name": "Grenades",
+			"description": "Explosive ordnance",
+			"color": "#ffa726"
+		}
+	},
 	"holster_slots": {
 		"large": [
 			"back_primary",
@@ -138,17 +327,14 @@
 		]
 	},
 	"equipment_slots": {
-		"primary_weapon": {
-			"max_size": "large",
-			"description": "Main weapon"
+		"weapon_1": {
+			"description": "Weapon slot 1 - any weapon"
 		},
-		"secondary_weapon": {
-			"max_size": "medium",
-			"description": "Backup weapon"
+		"weapon_2": {
+			"description": "Weapon slot 2 - any weapon"
 		},
-		"sidearm": {
-			"max_size": "small",
-			"description": "Emergency sidearm"
+		"weapon_3": {
+			"description": "Weapon slot 3 - any weapon"
 		}
 	}
 }

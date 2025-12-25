@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dxi7yfuesxkcr"
+path="res://.godot/imported/CHU F.mp3-47bc5f28910939f363445ab4cb511901.mp3str"
+
+[deps]
+
+source_file="res://music/temp/CHU F.mp3"
+dest_files=["res://.godot/imported/CHU F.mp3-47bc5f28910939f363445ab4cb511901.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

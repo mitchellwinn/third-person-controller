@@ -1,112 +1,116 @@
-[gd_scene load_steps=4 format=3 uid="uid://energy_bolt_projectile"]
+[gd_scene load_steps=9 format=3 uid="uid://dsw4cfl886xlq"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bolt"]
-transparency = 1
-shading_mode = 0
-albedo_color = Color(0.2, 0.8, 1.0, 0.9)
-emission_enabled = true
-emission = Color(0.0, 0.7, 1.0, 1)
-emission_energy_multiplier = 3.0
+[ext_resource type="Script" path="res://prefabs/projectiles/energy_bolt.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://prefabs/effects/pixel_impact_effect.tscn" id="2_effect"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bolt"]
 radius = 0.05
 height = 0.3
 
-[sub_resource type="GDScript" id="GDScript_bolt"]
-script/source = "extends Area3D
-class_name EnergyBolt
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bolt"]
+radius = 0.2225
+height = 0.445
 
-## Energy projectile that damages on contact
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bolt"]
+shading_mode = 0
+albedo_color = Color(0.479878, 0.805485, 1, 1)
 
-@export var speed: float = 150.0
-@export var damage: float = 25.0
-@export var damage_type: String = \"energy\"
-@export var lifetime: float = 3.0
-@export var impact_effect: PackedScene
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vjd5m"]
+radius = 0.297
+height = 0.664
 
-var velocity: Vector3 = Vector3.ZERO
-var owner_entity: Node = null
-var _lifetime_timer: float = 0.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y0gwr"]
+transparency = 1
+cull_mode = 1
+shading_mode = 0
 
-func _ready():
-	body_entered.connect(_on_body_entered)
-	area_entered.connect(_on_area_entered)
-	
-	# Set collision layers
-	collision_layer = 4  # Projectiles layer
-	collision_mask = 1 | 2  # Environment | Entities
+[sub_resource type="Animation" id="Animation_ifdkw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoltMesh:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
 
-func _physics_process(delta: float):
-	# Move projectile
-	global_position += velocity * delta
-	
-	# Lifetime
-	_lifetime_timer += delta
-	if _lifetime_timer >= lifetime:
-		_destroy()
+[sub_resource type="Animation" id="Animation_6ywsp"]
+resource_name = "fire"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 1),
+"transitions": PackedFloat32Array(0.241484, 0.241484, 0.241484),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(0.8, 0.8, 0.8), Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoltMesh:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 1),
+"transitions": PackedFloat32Array(1.36604, 1.36604, 1.36604),
+"update": 0,
+"values": [Vector3(1.2, 1.2, 1.2), Vector3(1, 1, 1), Vector3(1, 1, 1)]
+}
 
-func initialize(vel: Vector3, dmg: float, dmg_type: String, owner: Node):
-	velocity = vel
-	damage = dmg
-	damage_type = dmg_type
-	owner_entity = owner
-	
-	# Look in direction of travel
-	if velocity.length() > 0.1:
-		look_at(global_position + velocity.normalized())
-
-func _on_body_entered(body: Node3D):
-	if body == owner_entity:
-		return
-	
-	_hit(body)
-
-func _on_area_entered(area: Area3D):
-	if area.get_parent() == owner_entity:
-		return
-	
-	# Check for hitboxes
-	if area.has_method(\"register_hit\"):
-		area.register_hit(damage, damage_type, owner_entity)
-		_destroy()
-
-func _hit(target: Node):
-	# Apply damage
-	if target.has_method(\"take_damage\"):
-		target.take_damage(damage, owner_entity, damage_type)
-	
-	# Spawn impact effect
-	if impact_effect:
-		var effect = impact_effect.instantiate()
-		get_tree().current_scene.add_child(effect)
-		effect.global_position = global_position
-	
-	_destroy()
-
-func _destroy():
-	queue_free()
-"
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e6uwc"]
+_data = {
+"RESET": SubResource("Animation_ifdkw"),
+"fire": SubResource("Animation_6ywsp")
+}
 
 [node name="EnergyBolt" type="Area3D"]
-script = SubResource("GDScript_bolt")
-speed = 150.0
-damage = 25.0
-damage_type = "energy"
-lifetime = 3.0
+script = ExtResource("1_script")
+impact_effect = ExtResource("2_effect")
+impact_sound = "res://sounds/explosion_2"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_bolt")
 
-[node name="BoltMesh" type="CSGCapsule3D" parent="."]
+[node name="BoltMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.000939012, -0.00209177, -0.00207436)
+mesh = SubResource("CapsuleMesh_bolt")
+surface_material_override/0 = SubResource("StandardMaterial3D_bolt")
+
+[node name="BoltMesh2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_bolt")
-radius = 0.03
-height = 0.2
+mesh = SubResource("CapsuleMesh_vjd5m")
+surface_material_override/0 = SubResource("StandardMaterial3D_y0gwr")
 
 [node name="GlowLight" type="OmniLight3D" parent="."]
-light_color = Color(0.2, 0.8, 1, 1)
-light_energy = 0.5
-omni_range = 2.0
-omni_attenuation = 2.0
+light_color = Color(0.2, 0.9, 1, 1)
+omni_range = 3.0
+omni_attenuation = 1.5
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e6uwc")
+}
+speed_scale = 5.0

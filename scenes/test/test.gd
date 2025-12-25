@@ -1,4 +1,4 @@
-extends "res://addons/gsg-godot-plugins/action_entities/scripts/multiplayer_scene.gd"
+extends MultiplayerScene
 
 ## Test - Testing zone with all actions enabled
 ## Use this for testing combat, abilities, and all game mechanics
@@ -13,4 +13,5 @@ func _ready():
 	
 	super._ready()
 	print("[Test] Initialized with ", spawn_points.size(), " spawn points - ALL ACTIONS ENABLED")
+
 

@@ -1,16 +1,52 @@
 {
   "survey_planet": {
     "name": "Survey Planet in Orbit",
+    "short_name": "Survey Mission",
     "description": "Locate the Heavy Propulsion Surveillance Rod, retrieve its sample payload, and find clear weather for orbital extraction.",
     "difficulty": "normal",
     "min_players": 1,
     "max_players": 4,
+    "planet": "verdant_prime",
     "scene_path": "res://scenes/missions/survey_planet.tscn",
-    "objectives": [
-      {"id": "find_rod", "type": "locate", "target": "surveillance_rod", "description": "Locate the Surveillance Rod"},
-      {"id": "retrieve_payload", "type": "interact", "target": "sample_payload", "description": "Retrieve sample payload"},
-      {"id": "find_extraction", "type": "reach_zone", "target": "clear_weather_zone", "description": "Find clear weather for extraction"},
-      {"id": "extract", "type": "interact", "target": "orbital_uplink", "description": "Establish orbital uplink"}
+    "steps": [
+      {
+        "id": "deploy",
+        "name": "Deploy to Planet",
+        "hud_text": "Travel to the planet surface to begin the survey mission.",
+        "hud_hint": "Speak to Mission Control to deploy"
+      },
+      {
+        "id": "find_rod",
+        "name": "Locate Surveillance Rod",
+        "hud_text": "Track the signal of the Heavy Propulsion Surveillance Rod.",
+        "hud_hint": "Use your scanner to locate the impact zone",
+        "objective_type": "locate",
+        "target": "surveillance_rod"
+      },
+      {
+        "id": "retrieve_payload",
+        "name": "Retrieve Sample Payload",
+        "hud_text": "Extract the sample payload from the Surveillance Rod.",
+        "hud_hint": "Interact with the rod to retrieve the payload",
+        "objective_type": "interact",
+        "target": "sample_payload"
+      },
+      {
+        "id": "find_extraction",
+        "name": "Find Clear Weather",
+        "hud_text": "Locate a zone with clear weather conditions for orbital uplink.",
+        "hud_hint": "Weather conditions change - find a clearing",
+        "objective_type": "reach_zone",
+        "target": "clear_weather_zone"
+      },
+      {
+        "id": "extract",
+        "name": "Establish Uplink",
+        "hud_text": "Deploy the orbital uplink device and wait for extraction beam.",
+        "hud_hint": "Defend the uplink while it establishes connection",
+        "objective_type": "interact",
+        "target": "orbital_uplink"
+      }
     ],
     "rewards": {
       "currency": 500,
@@ -23,16 +59,37 @@
 
   "rescue_operative": {
     "name": "Rescue Operative",
+    "short_name": "Combat Medic",
     "description": "Deploy as a Combat Medic. Heal and resurrect operatives from other squads to earn Medic Credits.",
     "difficulty": "normal",
     "min_players": 1,
     "max_players": 4,
+    "planet": "any",
     "scene_path": "res://scenes/missions/rescue_operative.tscn",
     "role": "medic",
-    "objectives": [
-      {"id": "deploy", "type": "auto", "description": "Deploy to surface"},
-      {"id": "assist", "type": "ongoing", "description": "Assist other squads (optional)"},
-      {"id": "extract", "type": "reach_zone", "target": "extraction_point", "description": "Extract when ready"}
+    "steps": [
+      {
+        "id": "deploy",
+        "name": "Deploy as Medic",
+        "hud_text": "Deploy to the surface with your Combat Medic loadout.",
+        "hud_hint": "You've been granted medical abilities and equipment"
+      },
+      {
+        "id": "active",
+        "name": "Assist Other Squads",
+        "hud_text": "Locate and assist wounded operatives from other squads.",
+        "hud_hint": "Healing your own squad doesn't count for credits",
+        "objective_type": "ongoing",
+        "optional": true
+      },
+      {
+        "id": "extract",
+        "name": "Extract When Ready",
+        "hud_text": "Return to an extraction point when you're ready to leave.",
+        "hud_hint": "You can stay as long as you want to earn more credits",
+        "objective_type": "reach_zone",
+        "target": "extraction_point"
+      }
     ],
     "rewards": {
       "currency": 200,
@@ -48,16 +105,53 @@
 
   "deep_extraction": {
     "name": "Deep Extraction Mandate",
+    "short_name": "Deep Extraction",
     "description": "Descend into planet caverns via Heavy Bore Drill. Extract rare minerals and creature drops. High risk, high reward.",
     "difficulty": "hard",
     "min_players": 1,
     "max_players": 4,
+    "planet": "crag_minor",
     "scene_path": "res://scenes/missions/deep_extraction.tscn",
-    "objectives": [
-      {"id": "find_drill", "type": "locate", "target": "bore_drill", "description": "Locate the Heavy Bore Drill"},
-      {"id": "descend", "type": "interact", "target": "drill_elevator", "description": "Descend into caverns"},
-      {"id": "extract_loot", "type": "ongoing", "description": "Gather resources (optional)"},
-      {"id": "escape", "type": "reach_zone", "target": "drill_shaft", "description": "Return to drill shaft before timer expires"}
+    "steps": [
+      {
+        "id": "deploy",
+        "name": "Deploy to Planet",
+        "hud_text": "Travel to the planet surface to locate the Heavy Bore Drill.",
+        "hud_hint": "The drill creates access to underground caverns"
+      },
+      {
+        "id": "find_drill",
+        "name": "Locate Bore Drill",
+        "hud_text": "Find the Heavy Bore Drill site on the planet surface.",
+        "hud_hint": "Follow the smoke plume or use your scanner",
+        "objective_type": "locate",
+        "target": "bore_drill"
+      },
+      {
+        "id": "descend",
+        "name": "Descend Into Caverns",
+        "hud_text": "Use the drill elevator to descend into the cavern network.",
+        "hud_hint": "Deeper levels have better loot but more danger",
+        "objective_type": "interact",
+        "target": "drill_elevator"
+      },
+      {
+        "id": "extract_loot",
+        "name": "Gather Resources",
+        "hud_text": "Explore the caverns and collect valuable resources.",
+        "hud_hint": "Watch for hostile creatures - they hunt by sound",
+        "objective_type": "ongoing",
+        "optional": true
+      },
+      {
+        "id": "escape",
+        "name": "Return to Drill",
+        "hud_text": "Return to the drill shaft before it closes!",
+        "hud_hint": "The drill closes 20 minutes after deployment",
+        "objective_type": "reach_zone",
+        "target": "drill_shaft",
+        "urgent": true
+      }
     ],
     "rewards": {
       "currency": 300,
@@ -77,4 +171,3 @@
     "drill_closes_after_minutes": 20
   }
 }
-

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ts0mrxk4cvbl"
+path="res://.godot/imported/slbgm crater.mp3-179a4ee3b57e974103ebdd81b1c3a4a7.mp3str"
+
+[deps]
+
+source_file="res://music/temp/slbgm crater.mp3"
+dest_files=["res://.godot/imported/slbgm crater.mp3-179a4ee3b57e974103ebdd81b1c3a4a7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

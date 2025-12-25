@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://jwn6rlie70c0"]
+
+[ext_resource type="Script" path="res://scripts/music_zone.gd" id="1_music_zone"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_zone"]
+size = Vector3(46.0984, 67.7159, 135.885)
+
+[node name="MusicZone" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_music_zone")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_zone")

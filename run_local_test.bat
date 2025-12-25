@@ -78,14 +78,15 @@ start "Server" /min "%GODOT_PATH%" --headless --path "%PROJECT_PATH%" --server -
 timeout /t 2 /nobreak > nul
 
 :: Start clients (they will show title menu)
-:: Using smaller windows side by side on primary monitor
+:: Windows will place them on your primary monitor
+:: To force specific positions, add: --position X,Y (where X,Y are screen coordinates)
 echo Starting client 1...
-start "Client 1" "%GODOT_PATH%" --path "%PROJECT_PATH%" --resolution 800x600 --position 50,100
+start "Client 1" "%GODOT_PATH%" --path "%PROJECT_PATH%" --resolution 800x600
 
 timeout /t 1 /nobreak > nul
 
 echo Starting client 2...
-start "Client 2" "%GODOT_PATH%" --path "%PROJECT_PATH%" --resolution 800x600 --position 900,100
+start "Client 2" "%GODOT_PATH%" --path "%PROJECT_PATH%" --resolution 800x600
 
 echo.
 echo All instances started!

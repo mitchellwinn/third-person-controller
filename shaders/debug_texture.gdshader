@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded;
+render_mode unshaded, cull_disabled;
 
 // Global settings for debug texture
 uniform float checker_size : hint_range(0.1, 10.0) = 1.0; // Size of each checker in world units

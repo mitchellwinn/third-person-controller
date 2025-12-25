@@ -1,0 +1,48 @@
+{
+	"shop_id": "supply_officer",
+	"name": "Supply Officer",
+	"description": "Standard military supplies and ordnance.",
+	"currency": "credits",
+	"price_multiplier": 1.0,
+	"restock_time": 0,
+	"inventory": [
+		{
+			"item_id": "ammo_energy_light",
+			"stock": -1,
+			"price_override": null
+		},
+		{
+			"item_id": "ammo_energy_medium",
+			"stock": -1,
+			"price_override": null
+		},
+		{
+			"item_id": "ammo_energy_heavy",
+			"stock": -1,
+			"price_override": null
+		},
+		{
+			"item_id": "ammo_grenades",
+			"stock": -1,
+			"price_override": null
+		},
+		{
+			"item_id": "energy_pistol_01",
+			"stock": -1,
+			"price_override": null
+		},
+		{
+			"item_id": "suppressed_smg_m7s",
+			"stock": -1,
+			"price_override": null
+		},
+		{
+			"item_id": "assault_rifle_ma5",
+			"stock": -1,
+			"price_override": null
+		}
+	]
+}
+
+
+

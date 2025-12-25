@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dfgr6fsfvcyhp"
+path="res://.godot/imported/slbgm forest.mp3-4be6b3e36ccc3a1bc8fd514d3cbcf833.mp3str"
+
+[deps]
+
+source_file="res://music/temp/slbgm forest.mp3"
+dest_files=["res://.godot/imported/slbgm forest.mp3-4be6b3e36ccc3a1bc8fd514d3cbcf833.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

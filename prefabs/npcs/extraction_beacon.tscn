@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvl1ixll0mhs4"]
+
+[ext_resource type="Script" path="res://scripts/extraction_beacon.gd" id="1_script"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_interact"]
+height = 3.0
+radius = 3.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_collision"]
+size = Vector3(1, 2, 1)
+
+[node name="ExtractionBeacon" type="Node3D"]
+script = ExtResource("1_script")
+signal_duration = 30.0
+
+[node name="InteractionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+shape = SubResource("CylinderShape3D_interact")
+
+[node name="MeshRoot" type="Node3D" parent="."]
+
+[node name="BeaconBase" type="CSGCylinder3D" parent="MeshRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+height = 0.5
+
+[node name="BeaconPole" type="CSGCylinder3D" parent="MeshRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+radius = 0.1
+
+[node name="BeaconTop" type="CSGSphere3D" parent="MeshRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+radius = 0.3
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_collision")

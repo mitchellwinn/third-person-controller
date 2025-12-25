@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://i5bmhfuwnip2"]
+[gd_scene load_steps=12 format=3 uid="uid://i5bmhfuwnip2"]
 
 [ext_resource type="Shader" path="res://shaders/debug_texture.gdshader" id="1_7qlm2"]
 [ext_resource type="Script" path="res://scenes/test/test.gd" id="2_hub"]
 [ext_resource type="PackedScene" uid="uid://cj1jmhvtogtkf" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/action_npc.gd" id="3_action_npc"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/shop_npc.gd" id="3_shop_npc"]
 [ext_resource type="Script" path="res://scenes/hub/hub_spawn_point.gd" id="4_spawn"]
+[ext_resource type="PackedScene" path="res://prefabs/enemies/punching_bag.tscn" id="6_suioj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ysfrw"]
 render_priority = 0
@@ -44,10 +46,6 @@ script = ExtResource("2_hub")
 player_scene = ExtResource("2_player")
 
 [node name="Environment" type="Node3D" parent="."]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 10, 0)
-shadow_enabled = true
 
 [node name="CSGWorld" type="Node3D" parent="Environment"]
 
@@ -153,11 +151,11 @@ material = SubResource("ShaderMaterial_k667l")
 
 [node name="VendorNPC" type="CharacterBody3D" parent="NPCs" groups=["interactable", "npcs"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0.5, 0)
-script = ExtResource("3_action_npc")
-npc_name = "Equipment Vendor"
-dialogue_tree_id = "vendor_equipment"
-interaction_prompt = "Press E to shop"
-entity_id = "equipment_vendor"
+script = ExtResource("3_shop_npc")
+npc_name = "Supply Officer"
+dialogue_tree_id = "shop_supply_officer"
+interaction_prompt = "Press E to browse shop"
+entity_id = "supply_officer"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NPCs/VendorNPC"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -183,3 +181,27 @@ material = SubResource("ShaderMaterial_ysfrw")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Navigation"]
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PunchingBag" parent="." instance=ExtResource("6_suioj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20296, 0, 3.28181)
+
+[node name="PunchingBag2" parent="." instance=ExtResource("6_suioj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.20296, 0, 3.28181)
+
+[node name="PunchingBag3" parent="." instance=ExtResource("6_suioj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.203, 0, 3.28181)
+
+[node name="PunchingBag4" parent="." instance=ExtResource("6_suioj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.203, 0, 3.28181)
+
+[node name="PunchingBag5" parent="." instance=ExtResource("6_suioj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20296, 0, 11.2818)
+
+[node name="PunchingBag6" parent="." instance=ExtResource("6_suioj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.20296, 0, 11.2818)
+
+[node name="PunchingBag7" parent="." instance=ExtResource("6_suioj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.203, 0, 11.2818)
+
+[node name="PunchingBag8" parent="." instance=ExtResource("6_suioj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.203, 0, 11.2818)

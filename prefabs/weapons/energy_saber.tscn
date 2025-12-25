@@ -1,6 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://energy_saber_prefab"]
+[gd_scene load_steps=9 format=3 uid="uid://energy_saber_prefab"]
 
 [ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/melee_weapon_component.gd" id="1_melee"]
+
+[sub_resource type="CapsuleShape3D" id="hitbox_shape"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="hitbox_debug_mesh"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="mat_hitbox_debug"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.3)
+shading_mode = 0
 
 [sub_resource type="StandardMaterial3D" id="mat_hilt"]
 albedo_color = Color(0.15, 0.15, 0.2, 1)
@@ -24,18 +37,26 @@ emission_enabled = true
 emission = Color(0.8, 0.95, 1.0, 1)
 emission_energy_multiplier = 5.0
 
+[sub_resource type="BoxMesh" id="grip_preview_mesh"]
+size = Vector3(0.08, 0.12, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="grip_preview_mat"]
+transparency = 1
+albedo_color = Color(0.2, 0.8, 0.3, 0.4)
+shading_mode = 0
+
 [node name="EnergySaber" type="Node3D"]
 script = ExtResource("1_melee")
 item_id = "energy_saber_01"
 weapon_name = "Energy Saber"
-holster_slot = "hip_left"
+holster_slot = "melee_small_1"
 damage = 45.0
 damage_type = "energy"
 attack_speed = 2.0
-attack_range = 1.8
-knockback_force = 10.0
-hitstun_duration = 0.25
-hitbox_size = Vector3(0.15, 0.15, 0.8)
+attack_range = 1.0
+knockback_force = 1.0
+hitstun_duration = 0.4
+hitbox_size = Vector3(0.25, 0.25, 1.0)
 hitbox_offset = Vector3(0, 0, -0.5)
 
 [node name="WeaponModel" type="Node3D" parent="."]
@@ -91,4 +112,25 @@ radius = 0.02
 
 [node name="GripPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.12)
+gizmo_extents = 0.1
 
+[node name="GripPreview" type="MeshInstance3D" parent="GripPoint"]
+visible = false
+mesh = SubResource("grip_preview_mesh")
+material_override = SubResource("grip_preview_mat")
+
+[node name="BladeHitbox" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 6
+monitoring = false
+monitorable = false
+
+[node name="HitboxShape" type="CollisionShape3D" parent="BladeHitbox"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, -0.5)
+shape = SubResource("hitbox_shape")
+
+[node name="DebugMesh" type="MeshInstance3D" parent="BladeHitbox"]
+visible = false
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, -0.5)
+mesh = SubResource("hitbox_debug_mesh")
+material_override = SubResource("mat_hitbox_debug")
