@@ -41,6 +41,17 @@ var nearby_players: Array[Node] = []
 #region Node References
 @onready var interaction_area: Area3D = $InteractionArea
 @onready var mesh_root: Node3D = $MeshRoot if has_node("MeshRoot") else null
+@onready var beacon_top: CSGSphere3D = $MeshRoot/BeaconTop if has_node("MeshRoot/BeaconTop") else null
+#endregion
+
+#region Visual State
+const STATE_COLORS: Dictionary = {
+	BeaconState.IDLE: Color(1.0, 0.2, 0.2),      # Red - unactivated
+	BeaconState.SIGNALING: Color(1.0, 0.9, 0.2), # Yellow - signaling
+	BeaconState.READY: Color(0.2, 1.0, 0.3),     # Green - ready for extraction
+}
+
+var _beacon_material: ShaderMaterial = null
 #endregion
 
 func _ready():
@@ -51,6 +62,11 @@ func _ready():
 
 	add_to_group("extraction_beacons")
 	add_to_group("interactable")
+	add_to_group("npcs")  # Required for NetworkManager dialogue event routing
+
+	# Setup shader material for beacon top
+	_setup_beacon_material()
+	_update_beacon_visuals()
 
 func _physics_process(delta: float):
 	# Update interaction prompts for nearby players (runs on all clients)
@@ -116,6 +132,7 @@ func _enter_idle_state():
 	_ready_timer = 0.0
 	_signaling_player_peer_id = 0
 	state_changed.emit(BeaconState.IDLE)
+	_update_beacon_visuals()
 	_sync_state_to_clients()
 	print("[ExtractionBeacon] Entered IDLE state")
 
@@ -124,6 +141,7 @@ func _enter_signaling_state(initiator_peer_id: int):
 	_signal_timer = 0.0
 	_signaling_player_peer_id = initiator_peer_id
 	state_changed.emit(BeaconState.SIGNALING)
+	_update_beacon_visuals()
 	_sync_state_to_clients()
 	print("[ExtractionBeacon] Entered SIGNALING state (initiated by peer %d)" % initiator_peer_id)
 
@@ -131,6 +149,7 @@ func _enter_ready_state():
 	current_state = BeaconState.READY
 	_ready_timer = 0.0
 	state_changed.emit(BeaconState.READY)
+	_update_beacon_visuals()
 	_sync_state_to_clients()
 	print("[ExtractionBeacon] Entered READY state - extraction window open for %.1fs" % ready_window)
 #endregion
@@ -273,6 +292,7 @@ func _rpc_sync_state(state: int, timer: float, time_remaining: float):
 	current_state = state as BeaconState
 	_ready_timer = timer
 	state_changed.emit(current_state)
+	_update_beacon_visuals()
 
 func _get_player_peer_id(player: Node) -> int:
 	if "peer_id" in player:
@@ -303,4 +323,35 @@ func get_time_remaining() -> float:
 
 func is_extraction_available() -> bool:
 	return current_state == BeaconState.READY
+#endregion
+
+#region Visual Updates
+func _setup_beacon_material():
+	## Get existing shader material from beacon top sphere
+	if not beacon_top:
+		return
+
+	if beacon_top.material and beacon_top.material is ShaderMaterial:
+		_beacon_material = beacon_top.material
+	else:
+		# Fallback: create material if not set in scene
+		var shader = load("res://shaders/main_texture.gdshader")
+		if not shader:
+			push_warning("[ExtractionBeacon] Could not load main_texture shader")
+			return
+
+		_beacon_material = ShaderMaterial.new()
+		_beacon_material.shader = shader
+		_beacon_material.set_shader_parameter("apply_normal_shading", true)
+		_beacon_material.set_shader_parameter("normal_shading_strength", 0.5)
+		_beacon_material.set_shader_parameter("ambient_light", 0.4)
+		beacon_top.material = _beacon_material
+
+func _update_beacon_visuals():
+	## Update beacon top color based on current state
+	if not _beacon_material:
+		return
+
+	var color = STATE_COLORS.get(current_state, Color.WHITE)
+	_beacon_material.set_shader_parameter("albedo_tint", color)
 #endregion

@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b33md3emm001v"
-path="res://.godot/imported/Hub.blend-7809052721ffcd0a9c4b11dc552e4907.scn"
+valid=false
 
 [deps]
 
 source_file="res://3d_models/maps/Hub.blend"
-dest_files=["res://.godot/imported/Hub.blend-7809052721ffcd0a9c4b11dc552e4907.scn"]
 
 [params]
 

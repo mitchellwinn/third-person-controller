@@ -6,11 +6,11 @@
 		{
 			"id": "greeting",
 			"speaker": "npc",
-			"text": "Extraction beacon standing by. No active uplink to station. Signal must be initiated before extraction is possible.",
+			"text": "Extraction beacon standing by. Initiate signal to request extraction?",
 			"choices": [
 				{
-					"text": "Initiate signal to station",
-					"goto": "confirm_signal"
+					"text": "Initiate signal",
+					"goto": "signal_started"
 				},
 				{
 					"text": "Not yet"
@@ -18,23 +18,9 @@
 			]
 		},
 		{
-			"id": "confirm_signal",
-			"speaker": "npc",
-			"text": "Warning: Initiating signal will broadcast your position. Hostiles may be drawn to this location. Proceed?",
-			"choices": [
-				{
-					"text": "Begin transmission",
-					"goto": "signal_started"
-				},
-				{
-					"text": "Cancel"
-				}
-			]
-		},
-		{
 			"id": "signal_started",
 			"speaker": "npc",
-			"text": "Signal initiated. Establishing uplink to orbital station... Stand by for confirmation.",
+			"text": "Signal initiated. Stand by for uplink confirmation.",
 			"on_exit": [
 				{
 					"type": "start_signal",

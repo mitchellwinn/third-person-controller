@@ -140,9 +140,9 @@ func _process(delta: float):
 		if _switch_timer <= 0:
 			_complete_switch()
 	
-	# Handle firing (held input)
+	# Handle firing (held input) - block when UI is open or in dialogue
 	if _is_local_player() and not is_holstered and current_weapon:
-		if Input.is_action_pressed(action_fire):
+		if not _is_input_blocked() and Input.is_action_pressed(action_fire):
 			try_fire()
 	
 	# Auto-save timer (only on server or for local player)
@@ -159,6 +159,21 @@ func _on_tree_exiting():
 func _is_local_player() -> bool:
 	if _owner_entity and "can_receive_input" in _owner_entity:
 		return _owner_entity.can_receive_input
+	return false
+
+func _is_input_blocked() -> bool:
+	## Check if input should be blocked (dialogue, UI open, etc.)
+	# Use player's built-in dialogue check if available
+	if _owner_entity and _owner_entity.has_method("_is_in_dialogue"):
+		if _owner_entity._is_in_dialogue():
+			return true
+
+	# Check for UI that needs mouse (shop, dialogue, inventory, etc.)
+	var ui_nodes = get_tree().get_nodes_in_group("ui_needs_mouse")
+	for ui in ui_nodes:
+		if is_instance_valid(ui) and ui is Control and ui.visible:
+			return true
+
 	return false
 
 func _hide_preview_weapon(_slot: String):

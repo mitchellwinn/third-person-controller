@@ -109,6 +109,9 @@ func _ready():
 		camera = Camera3D.new()
 		camera.name = "Camera3D"
 		add_child(camera)
+
+	# Extend far clipping plane for large environments
+	camera.far = 8000.0
 	
 	# Capture mouse
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

@@ -66,26 +66,24 @@ func on_physics_process(delta: float):
 			input_source = "buffered"
 
 	if has_attack_input:
-		print("[StateIdle] Attack input detected (%s)" % input_source)
+		# Check if we have a ranged weapon - let EquipmentManager handle firing
+		var equip_manager = entity.get_node_or_null("EquipmentManager")
+		if equip_manager and equip_manager.has_method("is_current_weapon_melee"):
+			if not equip_manager.is_current_weapon_melee():
+				# Ranged weapon equipped - EquipmentManager handles firing, don't trigger melee
+				return
+
 		# Use combo controller for melee attacks (handles combo state properly)
 		var combo_ctrl = entity.get_node_or_null("MeleeComboController")
 		if combo_ctrl and combo_ctrl.has_method("try_attack"):
 			if combo_ctrl.try_attack():
-				print("[StateIdle] Combo controller started attack")
 				return
-			else:
-				print("[StateIdle] Combo controller REJECTED attack")
-		# Fallback to direct state transition
-		if state_manager.has_state("saber_light_slash_0"):
-			print("[StateIdle] Fallback: direct transition to saber_light_slash_0")
-			transition_to("saber_light_slash_0")
-			return
-		# Fallback to other attack states
+
+		# Fallback to other melee attack states (only if melee weapon equipped)
 		var attack_state = _get_attack_state()
 		if not attack_state.is_empty():
 			transition_to(attack_state)
 			return
-		print("[StateIdle] WARNING: Attack input but no valid attack state found!")
 	
 	var dodge_result = state_manager.consume_buffered_input_with_data("dodge")
 	if dodge_result.found:

@@ -39,6 +39,12 @@ var is_falling: bool = false
 
 # For simple state machine approach (without full AnimationTree setup)
 var use_simple_mode: bool = true
+
+# Guard against double-snap race condition
+var _last_snap_anim: String = ""
+var _last_snap_frame: int = -1
+var _last_snap_time: float = 0.0
+const SNAP_GUARD_TIME: float = 0.05 # Minimum time between snaps of same animation (50ms)
 #endregion
 
 func _ready():
@@ -441,16 +447,41 @@ func play_action(anim_name: String, blend_time: float = 0.2, snap: bool = false)
 	var actual_anim = _find_animation_case_insensitive(anim_name)
 	if actual_anim != "":
 		if snap:
+			var current_frame = Engine.get_process_frames()
+			var current_time = Time.get_ticks_msec() / 1000.0
+
+			# Guard against double-snap race condition
+			# Skip if we already snapped to this same animation recently
+			if _last_snap_anim == actual_anim:
+				if _last_snap_frame == current_frame:
+					print("[PlayerAnimationController] Skipping duplicate snap for: %s (same frame)" % actual_anim)
+					return
+				if current_time - _last_snap_time < SNAP_GUARD_TIME:
+					print("[PlayerAnimationController] Skipping duplicate snap for: %s (within %.0fms)" % [actual_anim, SNAP_GUARD_TIME * 1000])
+					return
+
 			# For snapping: completely stop current animation and clear blend queue
 			# This ensures no blending artifacts from previous animation
 			animation_player.stop()
 			animation_player.clear_queue()
+			# CRITICAL: Reset speed_scale to positive before playing
+			# Walking backwards sets speed_scale to negative, which would cause
+			# action animations to be stuck at frame 0 (can't progress forward)
+			animation_player.speed_scale = 1.0
 			# Play with zero blend and immediately seek to start
 			animation_player.play(actual_anim, 0.0, 1.0, false)
 			animation_player.seek(0.0, true)
+
+			# Record this snap to prevent race condition
+			_last_snap_anim = actual_anim
+			_last_snap_frame = current_frame
+			_last_snap_time = current_time
+
 			print("[PlayerAnimationController] Playing action: %s (SNAP)" % actual_anim)
 		else:
 			# Normal blend transition
+			# Reset speed_scale in case it was negative from walking backwards
+			animation_player.speed_scale = 1.0
 			animation_player.play(actual_anim, blend_time, 1.0, false)
 	else:
 		# List available animations to help debug

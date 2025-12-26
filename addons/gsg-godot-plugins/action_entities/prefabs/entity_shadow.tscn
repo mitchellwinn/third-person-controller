@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwf0jl7n3xh4u"]
+
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/entity_shadow.gd" id="1_shadow"]
+
+[node name="EntityShadow" type="MeshInstance3D"]
+script = ExtResource("1_shadow")
+cast_shadow = 0
+base_size = 1.0
+max_size = 2.5
+base_opacity = 0.6
+min_opacity = 0.1
+max_height = 10.0
+ground_offset = 0.02
+raycast_distance = 20.0
+update_interval = 0.0

@@ -58,7 +58,7 @@ signal weapon_dropped(weapon: Node3D)
 		if v and Engine.is_editor_hint():
 			_create_all_hitboxes()
 
-@export var show_debug_shapes: bool = true:
+@export var show_debug_shapes: bool = false:
 	set(v):
 		show_debug_shapes = v
 		_update_debug_visibility()
@@ -115,7 +115,7 @@ func _ready():
 	_owner_entity = get_parent()
 	_find_skeleton()
 	_find_equipment_manager()
-	
+
 	if not Engine.is_editor_hint():
 		_find_existing_hitboxes()
 		# Auto-create hitboxes at runtime if none exist
@@ -123,6 +123,8 @@ func _ready():
 			print("[BoneHitboxSystem] No hitboxes found, creating at runtime...")
 			_create_all_hitboxes()
 			print("[BoneHitboxSystem] Created %d hitboxes" % _hitboxes.size())
+		# Ensure debug visibility matches setting (hide by default)
+		_update_debug_visibility()
 
 func _find_skeleton() -> Skeleton3D:
 	if skeleton_path:

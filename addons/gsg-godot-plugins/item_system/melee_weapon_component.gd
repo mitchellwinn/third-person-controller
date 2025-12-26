@@ -44,7 +44,7 @@ signal attack_finished()
 @export var hit_sound_pitch_variation: float = 0.15 # ±15% pitch variation
 
 @export_group("Debug")
-@export var debug_hitbox: bool = true # Show hitbox debug info
+@export var debug_hitbox: bool = false # Show hitbox debug info
 #endregion
 
 #region Runtime State
@@ -77,6 +77,10 @@ func _ready():
 			_hitbox.body_entered.connect(_on_hitbox_body_entered)
 		if not _hitbox.area_entered.is_connected(_on_hitbox_area_entered):
 			_hitbox.area_entered.connect(_on_hitbox_area_entered)
+		# Ensure debug mesh visibility matches setting
+		var debug_mesh = _hitbox.get_node_or_null("DebugMesh")
+		if debug_mesh:
+			debug_mesh.visible = false # Always start hidden
 		if debug_hitbox:
 			print("[MeleeWeapon] Found BladeHitbox in scene, mask=%d" % _hitbox.collision_mask)
 

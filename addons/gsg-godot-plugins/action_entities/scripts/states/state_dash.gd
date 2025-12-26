@@ -28,7 +28,7 @@ class_name StateDash
 @export var dash_sound_pitch_variation: float = 0.1
 
 @export_group("Debug")
-@export var debug_dash: bool = true # Enabled for debugging
+@export var debug_dash: bool = false # Set true to enable verbose dash logging
 
 # Runtime
 var dash_direction: Vector3 = Vector3.FORWARD

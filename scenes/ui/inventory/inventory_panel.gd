@@ -226,15 +226,15 @@ func _setup_context_menu():
 func set_player(player: Node):
 	_player = player
 	_equipment_manager = player.get_node_or_null("EquipmentManager")
-	
+
 	# Get character_id - MUST match what ItemDatabase used when giving starting weapons
 	# Priority: NetworkManager's authenticated character > player properties > fallback
-	
+
 	var network = get_node_or_null("/root/NetworkManager")
 	if network and network.has_method("get_local_character_id"):
 		_character_id = network.get_local_character_id()
 		print("[Inventory] Got character_id from NetworkManager: ", _character_id)
-	
+
 	# Fallback to player properties
 	if _character_id == 0:
 		if "character_id" in player and player.character_id > 0:
@@ -245,15 +245,27 @@ func set_player(player: Node):
 			var net_id = player.get_node("NetworkIdentity")
 			if "owner_peer_id" in net_id:
 				_character_id = net_id.owner_peer_id
-	
+
 	# Last fallback: SteamManager
 	if _character_id == 0:
 		var steam = get_node_or_null("/root/SteamManager")
 		if steam and steam.has_method("get_steam_id"):
 			_character_id = steam.get_steam_id()
-	
+
+	# Connect to ItemDatabase inventory_changed signal to auto-refresh on purchases
+	var item_db = get_node_or_null("/root/ItemDatabase")
+	if item_db and item_db.has_signal("inventory_changed"):
+		if not item_db.inventory_changed.is_connected(_on_inventory_changed):
+			item_db.inventory_changed.connect(_on_inventory_changed)
+
 	print("[Inventory] Player set, character_id: ", _character_id)
 	refresh()
+
+func _on_inventory_changed(character_id: int):
+	## Called when ItemDatabase reports inventory change (e.g., shop purchase)
+	if character_id == _character_id:
+		print("[Inventory] Inventory changed for character %d, refreshing..." % character_id)
+		refresh()
 
 func refresh():
 	## Reload all data - ALWAYS use EquipmentManager for equipment slots (source of truth)

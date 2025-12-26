@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ceh4ceuqq0r0k"
-path="res://.godot/imported/Mirth.blend-43f30b95712e679bf4cfb48dae4bf614.scn"
+valid=false
 
 [deps]
 
 source_file="res://3d_models/maps/Mirth.blend"
-dest_files=["res://.godot/imported/Mirth.blend-43f30b95712e679bf4cfb48dae4bf614.scn"]
 
 [params]
 

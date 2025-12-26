@@ -38,6 +38,8 @@ signal stamina_changed(current: float, maximum: float)
 @export var mesh_root: Node3D
 @export var animation_tree: AnimationTree
 @export var skeleton: Skeleton3D
+@export var enable_blob_shadow: bool = true ## Add blob shadow under entity
+@export var shadow_base_size: float = 1.0 ## Base size of blob shadow
 #endregion
 
 #region Component References
@@ -162,13 +164,26 @@ func _ready():
 	if combat:
 		combat.died.connect(_on_died)
 		combat.damage_taken.connect(_on_damage_taken)
-	
+
 	# Server entities get added to group for network queries
 	if is_server_entity:
 		add_to_group("server_entities")
 
+	# Add blob shadow if enabled
+	if enable_blob_shadow:
+		_setup_blob_shadow()
+
 	entity_spawned.emit()
 
+
+func _setup_blob_shadow():
+	## Add a blob shadow under the entity
+	var ShadowScript = load("res://addons/gsg-godot-plugins/action_entities/scripts/entity_shadow.gd")
+	if ShadowScript:
+		var shadow = ShadowScript.new()
+		shadow.name = "BlobShadow"
+		shadow.base_size = shadow_base_size
+		add_child(shadow)
 
 func _find_components():
 	for child in get_children():

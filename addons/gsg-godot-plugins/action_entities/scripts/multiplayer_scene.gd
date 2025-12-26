@@ -64,6 +64,9 @@ func _spawn_existing_players():
 
 	# Spawn players for all connected peers IN THIS ZONE
 	for peer_id in network.connected_peers:
+		# Don't spawn for peer 1 (server) - dedicated servers don't have players
+		if peer_id == 1 and is_dedicated_server:
+			continue
 		# Don't spawn for peer 1 on clients (that's the dedicated server, not a player)
 		if peer_id == 1 and not network.is_server:
 			continue
@@ -211,6 +214,12 @@ func _on_peer_connected(peer_id: int, _player_data: Dictionary):
 
 	# Don't spawn for peer 1 on clients (that's the dedicated server, not a player)
 	if peer_id == 1 and network and not network.is_server:
+		print("[MultiplayerScene] Skipping spawn for server peer (client side)")
+		return
+
+	# Don't spawn for peer 1 on dedicated server (server doesn't need a player)
+	var is_dedicated_server = network and network.is_server and DisplayServer.get_name() == "headless"
+	if peer_id == 1 and is_dedicated_server:
 		print("[MultiplayerScene] Skipping spawn for server peer (dedicated server)")
 		return
 

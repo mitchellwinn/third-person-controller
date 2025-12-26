@@ -29,7 +29,7 @@ enum Phase {RISING, FALLING}
 @export var wall_jump_momentum_protection: float = 0.25 # Reduced air control after wall jump
 
 @export_group("Debug")
-@export var debug_airborne: bool = true # Enabled for debugging
+@export var debug_airborne: bool = false # Set true to enable verbose airborne logging
 
 var anim_controller: PlayerAnimationController = null
 var current_phase: Phase = Phase.RISING
